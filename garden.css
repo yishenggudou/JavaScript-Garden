@@ -48,7 +48,11 @@ a:hover {
 }
 
 #nav a code {
+    color: #004363;
     font-size: 13px;
+    border: none;
+    font-weight: bold;
+    padding: 0px;
 }
 
 #nav p {
