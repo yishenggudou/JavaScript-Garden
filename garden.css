@@ -47,11 +47,17 @@ a:hover {
     font-size: 13px;
 }
 
-#nav div {
+#nav a code {
+    font-size: 13px;
+}
+
+#nav p {
+    display: block;
+    margin-bottom: 0px;
     margin-top: 6px;
 }
 
-#nav div a:before {
+#nav p a:before {
     content: "Ꞁ ";
 }
 
@@ -114,7 +120,7 @@ h3 {
 
 h4 {
     font-size: 13px;
-    border-bottom: 3px solid #D0D0D0;
+    border-bottom: 2px solid #D0D0D0;
     padding-bottom: 3px;
 }
 
@@ -139,6 +145,14 @@ pre, code {
     border: 1px solid #DEDEDE;
 }
 
+h3 code {
+    font-size: 15px;
+}
+
+h4 code {
+    font-size: 13px;
+}
+
 pre {
     color: #707070;
     margin: 1em 0;
@@ -161,6 +175,15 @@ em {
     text-decoration: underline;
 }
 
+a em {
+    color: #004363;
+    font-weight: bold;
+}
+
+a em:hover {
+    color: #003a6b;
+}
+
 blockquote {
     margin-left: 24px;
     border-bottom: 2px solid #eaeaea;
@@ -176,7 +199,19 @@ blockquote + h4 {
     margin-top: 12px;
 }
 
+ol + h4 {
+    margin-top: 12px;
+}
+
+ul + h4 {
+    margin-top: 12px;
+}
+
 ol {
     margin-left: 32px;
 }
 
+ul {
+    list-style-type: square;
+    margin-left: 32px;
+}
