@@ -8,6 +8,8 @@
 
     <body id="top">
         <div id="nav"><h1>Covered Topics</h1><div id="navbox"><ul>
+<li><a href="#top">About the Garden</a></li>
+</ul><ul>
 <li><a href="#objects">Objects</a></li>
 </ul><ul>
 <li><a href="#prototype">The Prototype</a></li>
@@ -51,7 +53,8 @@ programmers may encounter on their endeavours into the depths of the language.</
 
 <p>JavaScript Garden does <strong>not</strong> insist on teaching JavaScript. Former knowledge
 of the language is recommended in order to understand the topics covered in this
-guide.</p>
+guide. If you want to learn the language, please head over to the excellent
+<a href="https://developer.mozilla.org/en/JavaScript/Guide">Guide</a> on the Mozilla Developer Network.</p>
 
 <h4>License</h4>
 
@@ -557,6 +560,59 @@ everything gets defined in <strong>one</strong> globally shared namespace.</p>
 upwards until it finds it. In the case that it reaches the global scope and still 
 can't find the requested name it will raise a <code>ReferenceError</code>.</p>
 
+<h4>The Bane of global Variables</h4>
+
+<pre><code>// script A
+foo = '42';
+
+// script B
+var foo = '42'
+</code></pre>
+
+<p>The above two scripts do <strong>not</strong> have the same effect. Script A defines a 
+variable called <code>foo</code> in the <em>global</em> scope and script B defines a <code>foo</code> in the
+<em>local</em> scope.</p>
+
+<p>Again, that's <strong>not</strong> at all the same effect, forgetting to use a <code>var</code> can have
+major implications.</p>
+
+<pre><code>// global scope
+var foo = 42;
+function test() {
+    // local scope
+    foo = 21;
+}
+test();
+foo; // 21
+</code></pre>
+
+<p>Leaving out the <code>var</code> statement will override the value of <code>foo</code>, this might not
+seem like a big deal at first, but consider you have a ten-thousand line
+JavaScript file with lots and lots of different variable names, not using <code>var</code>
+will introduce bugs for sure. And additionally those bugs are very often hard to
+track down.</p>
+
+<p>For example, when using generic variable names like <code>i</code> in loops.</p>
+
+<pre><code>// global scope
+var items = [/* some list */];
+for(var i = 0; i &lt; 10; i++) {
+    subLoop();
+}
+
+function subLoop() {
+    // scope of subLoop
+    for(i = 0; i &lt; 10; i++) { // missing var statement
+        // do amazing stuff!
+    }
+}
+</code></pre>
+
+<p>The outer loop will terminate after the first call to <code>subLoop</code> since that
+function had overriden the global value of <code>i</code>. Using a <code>var</code> for the second
+<code>for</code> loop would have easily avoided this, therefore never leave out <code>var</code>
+unless you really want to access the variable of an outer scope.</p>
+
 <h4>Local Variables</h4>
 
 <p>If one wants to declare a variable <em>local</em> to the current scope thes have to use 
@@ -630,7 +686,7 @@ evaluated works just as well, like for example <code>+function(){}()</code>.</p>
 
 <p>Always use the <em>anonymous wrapper</em> to encapsulate your code in case there's any 
 chance it might get used by someone else in their project. Also never define any 
-variables in the <em>global namespace</em>, always use <code>var</code> to limit the scope of your 
+variables in the <em>global</em> namespace, always use <code>var</code> to limit the scope of your 
 variables.</p></div><h3 id="this" class="section">How <code>this</code> works in JavaScript <a href="#top">^</a></h3 id="this" class="section"><div class="sub"><p>JavaScript has a, at first, very strange concept of what <code>this</code> refers to.
 There are exactly five different ways in which the value of <code>this</code> can get set.</p>
 
