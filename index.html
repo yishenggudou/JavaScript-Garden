@@ -30,6 +30,7 @@
                 <ul>
 <li><a href="#intro">Intro</a></li>
 <li><a href="#objects">Objects</a></li>
+<li><a href="#prototype">The Prototype</a></li>
 <li><a href="#hasownproperty"><code>hasOwnProperty</code></a></li>
 <li><a href="#forinloop">The For In Loop</a></li>
 <li><a href="#arrays">Arrays</a></li>
@@ -89,14 +90,13 @@ preceded by whitespace or a number literal - as a floating point number.</p>
 
 </section><section><header><h3>Objects as a Datatype</h3></header>
 
-<p>Objects can also <strong>act</strong> like a <a href="http://en.wikipedia.org/wiki/Hashmap"><em>Hashmap</em></a> in JavaScript by simply mapping <em>keys</em> to
-<em>values</em>. Using the curly brace notation <code>{}</code> one can create a new plain object, 
-which inherits from <code>Object.prototype</code> and has no <a href="#hasownproperty">own
-properties</a>.</p>
+<p>Objects can also <strong>act</strong> like a <a href="http://en.wikipedia.org/wiki/Hashmap"><em>Hashmap</em></a> in JavaScript by simply mapping 
+<em>keys</em> to <em>values</em>. Using the curly brace notation <code>{}</code> one can create a new 
+plain object,  which inherits from <code>Object.prototype</code> and has no 
+<a href="#hasownproperty">own properties</a>.</p>
 
 <pre><code>var foo = {}; // a new empty object
-var bar = {test: 12}; // a new object which has one property called 'test'
-                      // which value is 12
+var bar = {test: 12}; // a new object with a property
 
 var test = {
     delete: function() {}
@@ -108,6 +108,92 @@ do not support the upcoming EcmaScript 5 standard. What happens is that <code>de
 is a <em>keyword</em> and therefore cannot be used as a key here (another mis-design of
 the  parser). But you can simply work around this by using a string with the 
 value of <code>'delete'</code> instead of the plain literal.</p></section></article>
+
+<article><section><header><h2 id="prototype">The Prototype <a href="#intro">^</a></h2></header>
+<p>JavaScript does not feature the classical inheritance model, instead it uses a 
+<em>prototypal</em> one. This might at first seem like a limitation, but it's not. a 
+<em>prototypal</em> inheritance model is in fact more powerful than the classical
+one, for example you can emulate the classical model with it, but you can't do it
+the other way around.</p>
+
+<p>Due to the fact that JavaScript is practically the only language in that's both in
+widespread <strong>and</strong> uses prototypical inheritance, it takes some time to adjust
+to the differences between the two models. Inheritance in JavaScript is done by
+using <em>prototype chains</em>.</p>
+
+<pre><code>function Foo() {
+    this.value = 42;
+}
+Foo.prototype = {
+    method: function() {
+    }
+};
+
+function Bar() {
+}
+
+// Set Bar's prototype to the prototype object of Foo
+Bar.prototype = Foo.prototype;
+
+var test = new Bar() // create a new bar instance
+</code></pre>
+
+<p>The above <code>test</code> object will inherit from both <code>Bar.prototype</code> and
+<code>Foo.prototype</code>, so it will have access to the function <code>method</code> that was defined
+on <code>Foo</code>, but it will not have access to the value property of a <code>Foo</code> instance
+since <code>Foo</code> itself never gets called.  </p>
+
+<blockquote>
+  <p><strong>Note:</strong> Don't use <code>Bar.property = Foo;</code> this will <strong>not</strong> point to <code>Foo</code> its
+prototype (therefore <code>method</code> is not on the prototype chain), but rather to the 
+function object <code>Foo</code>, so the chain will go over <code>Function.prototype</code> in this 
+case.</p>
+</blockquote>
+
+</section><section><header><h3>Property Lookup</h3></header>
+
+<p>If you try to access a property of an <code>Object</code>, JavaScript will traverse the
+prototype chain <strong>upwards</strong> until it finds a property with the specified name.
+When it reaches the top of the chain - namely <code>Object.prototype</code> - and still
+hasn't found the property it will return the value <code>undefined</code>.</p>
+
+<pre><code>// Prototype chain in the example above
+Object.prototype: {toString: ... /* etc. */};
+    Foo.prototype: {method: ...};
+        Bar.prototype: Foo.prototype
+            Bar.method()
+</code></pre>
+
+<p>You can actually assign <strong>any</strong> <code>object</code> to the <code>prototype</code> property, so consider
+the following.</p>
+
+<pre><code>Bar.prototype = new Foo();
+var boo = new Bar();
+
+// Resulting prototype chain
+Object.prototype: {toString: ... /* etc. */};
+    Foo.prototype: {method: ...};
+        [Foo Instance]: {value: 42};
+            Bar.prototype: [Foo Instance]
+                Bar.method()
+</code></pre>
+
+<p>Now <code>Bar.prototype</code> points to an <strong>instance</strong> of <code>Foo</code>, which of course is just
+another object, but this time has the <code>value</code> property defined on it. And since 
+<code>Foo</code> itself has a prototype, the chain continues with that one afterwards.</p>
+
+<p>As a result of this, the lookup time for properties that are high up the chain 
+can have a negative impact on performance critical code. Access to non existent
+properties will always traverse the full chain and when 
+<a href="#the-for-in-loop">iterating</a> over the properties of an <code>Object</code> <strong>every</strong> 
+property that's on the <code>prototype</code> chain will get enumerated.</p>
+
+</section><section><header><h3>Best Practices</h3></header>
+
+<p>Make sure to that you understand the prototypical inheritance model completely,
+otherwise you will end up with unexpected, seemingly surprising results. Also,
+watch the prototype chains of your objects, remember that they can have a big
+impact on performance when not used correctly.</p></section></article>
 
 <article><section><header><h2 id="hasownproperty"><code>hasOwnProperty</code> <a href="#intro">^</a></h2></header>
 <p>If you want to check whether a <code>Object</code> has a property defined on <strong>itself</strong> (and 
@@ -150,9 +236,9 @@ the object <strong>itself</strong> but rather somewhere on its prototype chain. 
 chain when iterating over the properties of an <code>Object</code>.</p>
 
 <blockquote>
-  <p><strong>Note:</strong> The <code>for in</code> loop it will <strong>not</strong> iterate over any properties that have
-their <code>enumerable</code> attribute set to <code>false</code>, for example the <code>length</code> property of 
-an <code>Array</code>.</p>
+  <p><strong>Note:</strong> The <code>for in</code> loop it will <strong>not</strong> iterate over any properties that 
+have their <code>enumerable</code> attribute set to <code>false</code>, for example the <code>length</code> 
+property of an <code>Array</code>.</p>
 </blockquote>
 
 <p>Since you cannot change the behavior of the <code>for in</code> loop itself, you have to
@@ -161,7 +247,7 @@ filter out the unwanted properties in the loop body by using
 nature of traversing the complete prototype chain, the <code>for in</code> loop can get
 incredible slow for complex inheritance structures.</p>
 
-<pre><code>Object.prototype.bar = 1; // poisoning the Object.prototype, NEVER do this
+<pre><code>Object.prototype.bar = 1; // poisoning the Object.prototype
 var foo = {moo: 2};
 for(var i in foo) {
     console.log(i);
@@ -1108,7 +1194,8 @@ new Number(10) == 10; // Number.toString() gets converted to a Number
 10 == '10'; // Strings gets converted to Number
 10 == '+10 '; // More string madness
 10 == '010'; // And more 
-isNaN(null) == false; // null converts to 0, which of cours is not NaN
+isNaN(null) == false; // null converts to 0
+                      // which of course is not NaN
 
 // These are false
 10 == 010;
@@ -1127,8 +1214,7 @@ differently when being used with the <code>new</code> keyword and without it.</p
 
 <pre><code>new Number(10) === 10; // False, Object and Number
 Number(10) === 10; // True, Number and Number
-new Number(10) + 0 === 10; // True
-                           // The former is now being converted to a Number
+new Number(10) + 0 === 10; // True, due to implicit conversion
 </code></pre>
 
 <p>As you can see above, using the built in type like <code>Number</code> as a constructor,
@@ -1199,7 +1285,7 @@ has a property called <code>foo</code>, it will instead simply return <code>unde
 
     // foo is not interpreted as an object key, but as a label
     foo: 1 // JavaScript supports single expression evaluation
-           // So 1 evaluates to 1, and yet again does not raise any error
+           // So 1 evaluates to 1 and no error is being raised
 
 } // Another semicolon gets inserted here
 </code></pre>
@@ -1252,7 +1338,7 @@ most of the time, a silent error, since when the function returns <code>undefine
 <code>setTimeout</code> won't raise an error, but simply do nothing.</p>
 </blockquote>
 
-<h4>Stacking calls with <code>setInterval</code></h4>
+</section><section><header><h3>Stacking calls with <code>setInterval</code></h3></header>
 
 <p>While <code>setTimeout</code> only runs the function once, <code>setInterval</code> - as the name 
 suggests - will execute the function <strong>every</strong> <code>X</code> milliseconds. But its use is 
@@ -1273,7 +1359,7 @@ While <code>foo</code> blocks the code <code>setInterval</code> will still sched
 it. Now when <code>foo</code> has finished, there will already be <strong>ten</strong> further calls to
 waiting to for execution.</p>
 
-<h4>Dealing with possible blocking code</h4>
+</section><section><header><h3>Dealing with possible blocking code</h3></header>
 
 <p>The easiest as well as most controllable solution is to use <code>setTimeout</code> within
 the function itself.</p>
@@ -1289,7 +1375,7 @@ foo();
 stacking of calls from happening and it gives additional control since <code>foo</code> can
 now decide on its own whether it wants to run again or not.</p>
 
-<h4>Manually clearing timeouts</h4>
+</section><section><header><h3>Manually clearing timeouts</h3></header>
 
 <p>In order to remove set timeouts and intervals one has to use <code>clearTimeout</code> and
 <code>clearInterval</code> and supply to them the ID that was return by the corresponding
@@ -1299,7 +1385,7 @@ now decide on its own whether it wants to run again or not.</p>
 clearTimeout(id);
 </code></pre>
 
-<h4>Clearing all timeouts</h4>
+</section><section><header><h3>Clearing all timeouts</h3></header>
 
 <p>There's no built in way to clear all timeouts or intervals, one has to use brute
 force.</p>
@@ -1313,7 +1399,7 @@ for(var i = 0; i &lt; 1000000; i++) {
 <p>Note that there might be even higher IDs then in the above example, so make sure 
 to keep track of your timeout IDs, so you can avoid code such as the above.</p>
 
-<h4>Things to avoid at all costs</h4>
+</section><section><header><h3>Things to avoid at all costs</h3></header>
 
 <p><code>setTimeout</code> and <code>setInterval</code> can also take a string as their first parameter.
 Do <strong>not</strong> make use of this feature, since it internally makes use of <code>eval</code>.</p>
@@ -1347,7 +1433,7 @@ setTimeout(function() {
 }, 1000)
 </code></pre>
 
-<h4>Best Practices</h4>
+</section><section><header><h3>Best Practices</h3></header>
 
 <p><strong>Never</strong> use a string as the parameter of <code>setTimeout</code> or <code>setInterval</code> its a
 sign of <strong>really</strong> bad code, if you need to supply arguments to the function,
