@@ -7,45 +7,30 @@
     </head>
 
     <body id="top">
-        <div id="nav"><h1>Covered Topics</h1><div id="navbox"><ul>
+        <div id="nav"><h1>Covered Topics</h1>
+
+<ul id="navbox">
 <li><a href="#top">About the Garden</a></li>
-</ul><ul>
 <li><a href="#objects">Objects</a></li>
-</ul><ul>
 <li><a href="#prototype">The Prototype</a></li>
-</ul><ul>
 <li><a href="#hasownproperty"><code>hasOwnProperty</code></a></li>
-</ul><ul>
 <li><a href="#forinloop">The For In Loop</a></li>
-</ul><ul>
 <li><a href="#arrays">Arrays</a></li>
-</ul><ul>
 <li><a href="#arrayctor">The <code>Array</code> Constructor</a></li>
-</ul><ul>
 <li><a href="#functions">Functions and Statements</a></li>
-</ul><ul>
 <li><a href="#closures">Closures and References</a></li>
-</ul><ul>
 <li><a href="#arguments">Function Arguments</a></li>
-</ul><ul>
 <li><a href="#scopes">Scopes and Namespaces</a></li>
-</ul><ul>
 <li><a href="#this">How <code>this</code> works in JavaScript</a></li>
-</ul><ul>
 <li><a href="#constructors">Constructors</a></li>
-</ul><ul>
 <li><a href="#typeof">The <code>typeof</code> operator</a></li>
-</ul><ul>
 <li><a href="#instanceof">The <code>instanceof</code> operator</a></li>
-</ul><ul>
 <li><a href="#equality">Equality in JavaScript</a></li>
-</ul><ul>
 <li><a href="#undefined"><code>null</code> and <code>undefined</code></a></li>
-</ul><ul>
+<li><a href="#casting">Type Casting</a></li>
 <li><a href="#semicolon">Automatic Semicolon Insertion</a></li>
-</ul><ul>
 <li><a href="#settimeout"><code>setTimeout</code> and <code>setInterval</code></a></li>
-</ul></div><div id="footer"><p>Copyright (c) 2011 Ivo Wetzel</p></div> </div>
+</ul><div id="footer"><p>Copyright (c) 2011 Ivo Wetzel</p></div> </div>
         <div id="main"><h1>JavaScript Garden</h1><p><strong>JavaScript Garden</strong> is a growing collection of documentation about the most 
 quirky parts of the JavaScript. It gives advice to avoid common coding
 mistakes, subtle bugs, as well as performance issues non expert JavaScript
@@ -53,7 +38,7 @@ programmers may encounter on their endeavours into the depths of the language.</
 
 <p>JavaScript Garden does <strong>not</strong> insist on teaching JavaScript. Former knowledge
 of the language is recommended in order to understand the topics covered in this
-guide. If you want to learn the language, please head over to the excellent
+guide. If you want to learn the language first, please head over to the excellent
 <a href="https://developer.mozilla.org/en/JavaScript/Guide">Guide</a> on the Mozilla Developer Network.</p>
 
 <h4>License</h4>
@@ -98,8 +83,8 @@ do not support the upcoming EcmaScript 5 standard. What happens is that <code>de
 is a <em>keyword</em> and therefore cannot be used as a key here (another mis-design of
 the  parser). But you can simply work around this by using a string with the 
 value of <code>'delete'</code> instead of the plain literal.</p></div><h3 id="prototype" class="section">The Prototype <a href="#top">^</a></h3 id="prototype" class="section"><div class="sub"><p>JavaScript does not feature the classical inheritance model, instead it uses a 
-<em>prototypical</em> one. This might at first seem like a limitation, but it's not. a 
-<em>prototypical</em> inheritance model is in fact more powerful than the classical
+<em>prototypal</em> one. This might at first seem like a limitation, but it's not. a 
+<em>prototypal</em> inheritance model is in fact more powerful than the classical
 one, for example you can emulate the classical model with it, but you can't do it
 the other way around.</p>
 
@@ -421,7 +406,19 @@ if (false) {
 <p>Since there's <strong>no</strong> <a href="#scopes">block scope</a> in JavaScript, the above will
 <strong>not</strong> assign the value <code>2</code> to the <em>global</em> variable <code>bar</code>, rather it assigns it to the 
 <em>local</em> variable <code>bar</code> of <code>test</code>. Also, while the statements inside the <code>if</code> block never gets executed, 
-the variable <code>foo</code> still gets created and defaults to <code>undefined</code>.</p></div><h3 id="closures" class="section">Closures and References <a href="#top">^</a></h3 id="closures" class="section"><div class="sub"><p>One of JavaScript's most powerful features is the availability of <em>Closures</em>.
+the variable <code>foo</code> still gets created and defaults to <code>undefined</code>.</p>
+
+<h4><code>var</code> vs. <code>function</code></h4>
+
+<p>All <code>var</code> statements get parsed <strong>before</strong> the <code>function</code> statements, subsequent
+statements override the previous ones.</p>
+
+<pre><code>function foo() {
+}
+var foo;
+foo; // [function foo] before the next line gets evaluated
+var foo = 2;
+</code></pre></div><h3 id="closures" class="section">Closures and References <a href="#top">^</a></h3 id="closures" class="section"><div class="sub"><p>One of JavaScript's most powerful features is the availability of <em>Closures</em>.
 But it's also one of its most misunderstood features.</p>
 
 <p>Closures mean that scopes <strong>always</strong> keep access to the outer scope they were
@@ -514,6 +511,18 @@ value) as its first arguments, therefore we now have a copy of the <strong>value
 
 <p>The anonymous function passed to <code>setTimeout</code> now has a reference to <code>e</code> which
 does not get changed by the loop.</p>
+
+<p>There's another possibility, which is to return a function from an anonymous
+wrapper:</p>
+
+<pre><code>for(var i = 0; i &lt; 10; i++) {
+    setTimeout((function(e) {
+        return function() {
+            console.log(e);
+        }
+    })(i), 1000)
+}
+</code></pre>
 
 <h4>Best Practices</h4>
 
@@ -1025,6 +1034,22 @@ null         ===   undefined     // false
 
 <p>These are the results one coming from a strongly typed language would expect.</p>
 
+<h4>Comparing Objects</h4>
+
+<p>While both <code>==</code> and <code>===</code> are stated as equality operators, they behave different
+when used with at least one <code>Object</code>.</p>
+
+<pre><code>{} === {}; // false
+new String('foo') === 'foo'; // false
+new Number(10) === 10; // false
+var foo = {};
+foo === foo; // true
+</code></pre>
+
+<p>Here both operators compare for <strong>indentity</strong> and not equality, that is they
+will compare for the same <strong>instance</strong> of the object, much like <code>is</code> in Python and a
+pointer comparison in C.</p>
+
 <h4>Best Practices</h4>
 
 <p><strong>Always</strong> use the <code>===</code> operator, there is never a <strong>any</strong> reason at all to 
@@ -1079,7 +1104,83 @@ is more or less just another data type.</p>
 
 <p>While it is uses in some JavaScript internals (like declaring the end of the
 prototype chain by setting <code>Foo.prototype = null</code>), it can almost ever be
-replace by <code>undefined</code>.</p></div><h3 id="semicolon" class="section">Automatic Semicolon Insertion <a href="#top">^</a></h3 id="semicolon" class="section"><div class="sub"><p>Although JavaScript has C style syntax, it does not enforce the use of
+replace by <code>undefined</code>.</p></div><h3 id="casting" class="section">Type Casting <a href="#top">^</a></h3 id="casting" class="section"><div class="sub"><p>Since JavaScript is a weakly typed language one might think that it is the best
+to let the language to the type casting when comparing. But this is <strong>not</strong> a good
+idea, since the rules for converting between the types are extremely complex and
+even obscure at times.</p>
+
+<h4>Never use type coercion</h4>
+
+<p>Do <strong>never</strong> compare by using the <a href="#equality">double equal</a>, one little change
+in your code can break everything.</p>
+
+<pre><code>// These are true
+new Number(10) == 10; // Number.toString() gets converted to a Number
+10 == '10'; // Strings gets converted to Number
+10 == '+10 '; // More string madness
+10 == '010'; // And more 
+isNaN(null) == false; // null converts to 0, which of cours is not NaN
+
+// These are false
+10 == 010;
+10 == '-10'
+</code></pre>
+
+<blockquote>
+  <p><strong>Note:</strong> Number literals that start with a <code>0</code> are interpreted as octal that
+is base 8. </p>
+</blockquote>
+
+<h4>Madness with <code>new</code> and built in Types</h4>
+
+<p>The constructors of the built in types like <code>Number</code> and <code>String</code> behave
+differently when being used with the <code>new</code> keyword and without it.</p>
+
+<pre><code>new Number(10) === 10; // False, Object and Number
+Number(10) === 10; // True, Number and Number
+new Number(10) + 0 === 10; // True
+                           // The former is now being converted to a Number
+</code></pre>
+
+<p>As you can see above, using the built in type like <code>Number</code> as a constructor,
+will create a new Number <code>Object</code>, but leaving out the <code>new</code> keyword will make
+it behave like a converter.</p>
+
+<p>Also having literals or non <code>Object</code> values in there, will active more coercing
+magic.</p>
+
+<p>Since the automatic casting either by using different data types together, or the
+double equal operator is everything <strong>but</strong> consistent, the best option is to do
+the casting explicitly, basically all you can do is to cast to three different
+types.</p>
+
+<h4>Casting to a String</h4>
+
+<pre><code>'' + 10 === '10'; // true
+</code></pre>
+
+<p>By using a empty string one can easily cast to a plain string.</p>
+
+<h4>Casting to a Number</h4>
+
+<pre><code>+'10' === 10; // true
+</code></pre>
+
+<p>Using the <strong>unary</strong> plus operator it is possible to cast to a plain number.</p>
+
+<h4>Casting to a Boolean</h4>
+
+<p>By using the <strong>not</strong> operator twice, one can convert anything to its boolean
+value. </p>
+
+<pre><code>!!'foo';   // true
+!!'';      // false
+!!'0';     // false
+!!'1';     // true
+!!'-1'     // true
+!!{};      // true
+!!true;    // true
+</code></pre></div><h3 id="semicolon" class="section">Automatic Semicolon Insertion <a href="#top">^</a></h3 id="semicolon" class="section"><div class="sub"><p>Although JavaScript has C style syntax, it does not enforce the use of
 semicolons in the source code, but since the parser still needs them in order to
 be able to figure out what the code should do, it inserts them automatically.</p>
 
@@ -1128,6 +1229,11 @@ different behavior.</p>
 avoid such subtle mistakes. It's also good style to <strong>never</strong> make use the 
 possibility of omitting the curly braces for one line <code>if / else</code> statements.</p></div><h3 id="settimeout" class="section"><code>setTimeout</code> and <code>setInterval</code> <a href="#top">^</a></h3 id="settimeout" class="section"><div class="sub"><p>Since JavaScript is asynchronous, one can schedule the execution of a function by
 using the <code>setTimeout</code> and <code>setInterval</code> functions.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> Timeouts are <strong>not</strong> part of the EcmaScript Standard, they are
+implemented as part of the <a href="http://en.wikipedia.org/wiki/Document_Object_Model">DOM</a>.</p>
+</blockquote>
 
 <pre><code>function foo() {
 }
