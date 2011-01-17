@@ -332,21 +332,21 @@ can be bound in the language.</p>
 <pre><code>this;
 </code></pre>
 <p>When using <code>this</code> in global scope, it will simply refer to the <em>global</em> object.</p>
-</section><section><header><h3>Calling a Function</h3></header>
+</section><section><header><h3>Calling a function</h3></header>
 <pre><code>foo();
 </code></pre>
 <p>Here <code>this</code> will again refer to the <em>global</em> object.</p>
-</section><section><header><h3>Calling a Method</h3></header>
+</section><section><header><h3>Calling a method</h3></header>
 <pre><code>test.foo();
 </code></pre>
 <p>In this example <code>this</code> will refer to <code>test</code>.</p>
-</section><section><header><h3>Calling a Constructor</h3></header>
+</section><section><header><h3>Calling a constructor</h3></header>
 <pre><code>new foo();
 </code></pre>
 <p>A function call that is preceded by the <code>new</code> keyword acts as
 a <a href="#constructors">constructor</a>. Inside the function <code>this</code> will refer to a newly
 created <code>Object</code>.</p>
-</section><section><header><h3>Explicit setting</h3></header>
+</section><section><header><h3>Explicit setting of <code>this</code></h3></header>
 <pre><code>function foo(a, b, c) {}
 
 var bar = {};
@@ -386,7 +386,7 @@ variable inside of <code>method</code> which refers to <code>Foo</code>.</p>
 }
 </code></pre>
 <p><code>that</code> is just a normal name, but it is commonly used for the reference to an 
-outer <code>this</code>. In combination with <a href="#closures">Closures</a>, it can also be used to 
+outer <code>this</code>. In combination with <a href="#closures">closures</a>, it can also be used to 
 pass <code>this</code> values around.</p>
 </section><section><header><h3>Assigning methods</h3></header>
 <p>Another thing that does <strong>not</strong> work in JavaScript is <strong>assigning</strong> a method
@@ -523,7 +523,7 @@ to the fact how <a href="#scopes">name resolution</a> in JavaScript works, the p
 will override the default <code>arguments</code> object.</p>
 </aside></section></article>
 
-<article><section><header><h2 id="scopes">Scopes and Namespaces <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="scopes">Scopes and namespaces <a href="#intro">^</a></h2></header>
 <p>Although JavaScript deals fine with the block scope syntax of two matching curly
 braces, it does <strong>not</strong> support block scope; thus, all that is left is the 
 <em>function scope</em>.</p>
@@ -538,7 +538,7 @@ everything gets defined in <strong>one</strong> globally shared namespace.</p>
 <p>Each time a variable is referenced, JavaScript will traverse upwards through all 
 the scopes until it finds it. In the case that it reaches the global scope and 
 still has not found the requested name, it will raise a <code>ReferenceError</code>.</p>
-</section><section><header><h3>The Bane of global Variables</h3></header>
+</section><section><header><h3>The bane of global variables</h3></header>
 <pre><code>// script A
 foo = '42';
 
@@ -637,8 +637,8 @@ function() {}
 ) // and return the function object
 () // call the result of the evaluation
 </code></pre>
-<p>There are other ways for evaluating and calling the function expression which - 
-while different in syntax - do the exact same thing.</p>
+<p>There are other ways for evaluating and calling the function expression; which 
+while different in syntax, do the exact same thing.</p>
 <pre><code>// Two other ways
 +function(){}();
 (function(){}());
@@ -901,8 +901,8 @@ for(var i in foo) {
 will <strong>only</strong> print out <code>moo</code>. When <code>hasOwnProperty</code> is left out, the code is 
 prone to errors when the native prototypes have been extended; for example,
 <code>Object.prototype</code>.</p>
-<p>One widely used framework which does this is <a href="http://www.prototypejs.org/"><strong>Prototype</strong></a>. When this 
-framework is included, <code>for in</code> loops that doe not use <code>hasOwnProperty</code> are 
+<p>One widely used framework which does this is <a href="http://www.prototypejs.org/">Prototype</a>. When this 
+framework is included, <code>for in</code> loops that do not use <code>hasOwnProperty</code> are 
 guaranteed to break.</p>
 </section><section><header><h3>Best practices</h3></header>
 <p>It is recommended to <strong>always</strong> use <code>hasOwnProperty</code>. Never should any 
@@ -947,10 +947,10 @@ you can see this is anything but consistent.</p>
 following strings. <code>Arguments</code>, <code>Array</code>, <code>Boolean</code>, <code>Date</code>, <code>Error</code>, 
 <code>Function</code>, <code>JSON</code>, <code>Math</code>, <code>Number</code>, <code>Object</code>, <code>RegExp</code>, <code>String</code>.</p>
 </aside>
-<p>In order to retrieve the value of <em>Class</em> one can has to make use of the
+<p>In order to retrieve the value of <code>[[Class]]</code> one can has to make use of the
 <code>toString</code> method of <code>Object</code>.</p>
 </section><section><header><h3>The Class of an object</h3></header>
-<p>The specification gives exactly one way of accessing the <em>Class</em> value.</p>
+<p>The specification gives exactly one way of accessing the <code>[[Class]]</code> value.</p>
 <pre><code>function is(type, obj) {
     var cls = Object.prototype.toString.call(obj).slice(8, -1);
     return cls === type;
@@ -959,8 +959,8 @@ following strings. <code>Arguments</code>, <code>Array</code>, <code>Boolean</co
 is('String', 'test'); // true
 is('String', new String('test')); // true
 </code></pre>
-<p><code>Object.prototype.toString</code> gets called with <a href="#this">this</a> 
-being set to the object which its <em>Class</em> value should be retrieved.</p>
+<p><code>Object.prototype.toString</code> gets called with the value of <a href="#this">this</a> being set
+to the object whose <code>[[Class]]</code> value should be retrieved.</p>
 </section><section><header><h3>Testing for undefined variables</h3></header>
 <pre><code>typeof foo !== 'undefined'
 </code></pre>
