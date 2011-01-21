@@ -7,6 +7,7 @@
         
         <meta name="description" content="Guide to JavaScript's Quirks and Flaws">
         <link rel="stylesheet" href="css/garden.css" media="screen">
+        <link rel="stylesheet" href="css/print.css" media="print">
     </head>
 
     <body>
@@ -41,17 +42,20 @@
             <header>
                 <article><section><header><h1 id="intro">Intro</h1></header>
 <p><strong>JavaScript Garden</strong> is a growing collection of documentation about the most 
-quirky parts of the JavaScript programming language. It gives advice for
-avoiding common coding mistakes, subtle bugs, as well as performance issues 
-and bad practices non expert JavaScript programmers may encounter on their 
+quirky parts of the JavaScript programming language. It gives advice to 
+avoid common mistakes, subtle bugs, as well as performance issues and bad 
+practices that non-expert JavaScript programmers may encounter on their 
 endeavours into the depths of the language.</p>
 <p>JavaScript Garden does <strong>not</strong> insist on teaching JavaScript. Former knowledge
 of the language is strongly recommended in order to understand the topics covered
-in this guide. If you want to learn the language first, please head over to the 
-excellent <a href="https://developer.mozilla.org/en/JavaScript/Guide">Guide</a> on the Mozilla Developer Network.</p>
+in this guide. In order to learn the basics of the language, please head over to 
+the excellent <a href="https://developer.mozilla.org/en/JavaScript/Guide">guide</a> on the Mozilla Developer Network.</p>
 </section><section><header><h3>The authors</h3></header>
 <p>This guide is the work of two lovely Stack Overflow users, <a href="http://stackoverflow.com/users/170224/ivo-wetzel">Ivo Wetzel</a>
 (Writing) and <a href="http://stackoverflow.com/users/313758/yi-jiang">Zhang Yi Jiang</a> (Design).</p>
+<p>If case you are interested in additional guidance or reviews concerning your JavaScript 
+projects, Ivo Wetzel offers these on a freelance basis. Please feel free to 
+contact him via <a href="mailto:ivo.wetzel@googlemail.com">e-mail</a> for further details.</p>
 </section><section><header><h3>License</h3></header>
 <p>JavaScript Garden is published under the <a href="https://github.com/BonsaiDen/JavaScript-Garden/blob/next/LICENSE">MIT license</a> and hosted on
 <a href="https://github.com/BonsaiDen/JavaScript-Garden">GitHub</a>. If you find errors or typos please <a href="https://github.com/BonsaiDen/JavaScript-Garden/issues">file an issue</a> or a pull 
@@ -68,29 +72,29 @@ function Foo(){}
 Foo.bar = 1;
 Foo.bar; // 1
 </code></pre>
-<p>A commonly made mis-assumption is that number literals cannot be used as objects,
-since a mis-design in JavaScript's parser tries to parse the following as a 
-floating point literal instead.</p>
+<p>A mis-assumption that is commonly made, is that number literals cannot be used as
+objects. That is because a flaw in JavaScript's parser tries to parse the <em>dot 
+notation</em> on a number as a floating point literal.</p>
 <pre><code>2.toString(); // raises SyntaxError
 </code></pre>
-<p>But a couple of workarounds can be used in order make number literals work as
-object too.</p>
+<p>There are a couple of workarounds which can be used in order make number 
+literals act as object too.</p>
 <pre><code>2..toString(); // the second point is correctly recognized
 2. toString(); // note the space
 (2).toString(); // 2 is evaluated first
 </code></pre>
 </section><section><header><h3>Objects as a data type</h3></header>
-<p>Objects in JavaScript can also be used as a <a href="http://en.wikipedia.org/wiki/Hashmap"><em>Hashmap</em></a>, since they mainly 
-consist of named properties that map to values.</p>
+<p>Objects in JavaScript can also be used as a <a href="http://en.wikipedia.org/wiki/Hashmap"><em>Hashmap</em></a>, they mainly consist 
+of named properties mapping to values.</p>
 <p>Using the curly brace notation <code>{}</code> one can create a plain object. This new
 object <a href="#prototype">inherits</a> from <code>Object.prototype</code> and has no 
-<a href="#hasownproperty">own properties</a> set on it.</p>
+<a href="#hasownproperty">own properties</a> defined on it.</p>
 <pre><code>var foo = {}; // a new empty object
 
 // a new object with a property called 'test' with value 12
 var bar = {test: 12};
 </code></pre>
-</section><section><header><h3>Access of properties</h3></header>
+</section><section><header><h3>Accessing properties</h3></header>
 <p>The properties of an object can be accessed in two ways. Either via the dot
 notation, or the square bracket notation.</p>
 <pre><code>var foo = {name: 'Kitten'}
@@ -103,9 +107,30 @@ foo[get]; // kitten
 foo.1234; // SyntaxError
 foo['1234']; // works
 </code></pre>
-<p>Both notation are identical in their workings, the only difference being that
-the square bracket notation allows for dynamic setting of properties as well as
+<p>Both notations are identical in their workings, the only difference being that
+the square bracket notation allows for dynamic setting of properties, as well as
 the use of property names that would otherwise lead to a syntax error.</p>
+</section><section><header><h3>Deleting properties</h3></header>
+<p>The only way to actually remove a property from an object is to use the <code>delete</code>
+keyword, setting the property to <code>undefined</code> or <code>null</code> does <strong>only</strong> remove the
+value associated with the property, but not the key.</p>
+<pre><code>var obj = {
+    bar: 1,
+    foo: 2,
+    baz: 3
+};
+obj.bar = undefined;
+obj.foo = null;
+delete obj.baz;
+
+for(var i in obj) {
+    if (obj.hasOwnProperty(i)) {
+        console.log(i, '' + obj[i]);
+    }
+}
+</code></pre>
+<p>The aboves outputs both <code>bar undefined</code> and <code>foo null</code>, only <code>baz</code> got actually
+removed and is therefore missing from the output.</p>
 </section><section><header><h3>Notation of keys</h3></header>
 <pre><code>var test = {
     'case': 'I am a keyword so I must be notated as a string',
@@ -114,24 +139,21 @@ the use of property names that would otherwise lead to a syntax error.</p>
 </code></pre>
 <p>Object properties can be both notated as plain characters and as strings. Due to
 another mis-design in JavaScript's parser, the above raises a <code>SyntaxError</code>.</p>
-<p>The error is getting raised because <code>delete</code> is a <em>keyword</em> of the language;
-therefore, it must be notated as a string literal.</p>
-</section><section><header><h3>In conclusion</h3></header>
-<p>Objects are the bread and butter of JavaScript, nearly everything in the
-language is based on top of them.</p></section></article>
+<p>This error arises from the fact that <code>delete</code> is a <em>keyword</em> of the language;
+therefore, it must be notated as a string literal.</p></section></article>
 
 <article><section><header><h2 id="prototype">The prototype <a href="#intro">^</a></h2></header>
 <p>JavaScript does not feature the classical inheritance model, instead it uses a 
 <em>prototypical</em> one. </p>
 <p>While this is often considered to be one of JavaScript's weaknesses, the 
 prototypical inheritance model is in fact more powerful than the classic model. 
-For example, it is fairly trivial to build a classic model on top the it while the 
-other way around is a far more difficult task.</p>
+For example, it is fairly trivial to build a classic model on top of it, while 
+the other way around is a far more difficult task.</p>
 <p>Due to the fact that JavaScript is basically the only widely used language that
 features prototypical inheritance, it takes some time to adjust to the 
 differences between the two models. </p>
-<p>The first major difference is that inheritance in JavaScript is done by using 
-<em>prototype chains</em>.</p>
+<p>The first major difference is that inheritance in JavaScript is done by using so
+called <em>prototype chains</em>.</p>
 <pre><code>function Foo() {
     this.value = 42;
 }
@@ -146,22 +168,22 @@ Bar.prototype = Foo.prototype;
 
 var test = new Bar() // create a new bar instance
 
-// Resulting prototype chain
+// The resulting prototype chain
 Object.prototype: {toString: ... /* etc. */};
     Foo.prototype: {method: ...};
         Bar.prototype: Foo.prototype
             Bar.method()
 </code></pre>
-<p>The above object <code>test</code> will inherit from both <code>Bar.prototype</code> and
-<code>Foo.prototype</code>. Hence, it will have access to the function <code>method</code> that was 
-defined on <code>Foo</code>, but it will not have access to the <strong>property</strong> <code>value</code> of a 
-<code>Foo</code> instance since that property gets defined in the <a href="#constructor">constructor</a>
-of <code>Foo</code>. Which, in this case, never gets called.</p>
+<p>In the above, the object <code>test</code> will inherit from both <code>Bar.prototype</code> and
+<code>Foo.prototype</code>; hence, it will have access to the function <code>method</code> that was 
+defined on <code>Foo</code>. But it will not have access to the property <code>value</code> of a 
+<code>Foo</code> instance, since that property gets defined in the <a href="#constructor">constructor</a>
+of <code>Foo</code>. But this constructor has to be called explicitly.</p>
 <aside>
 <p><strong>Note:</strong> Do <strong>not</strong> use <code>Bar.property = Foo</code>, since it will not point to 
-the prototype of <code>Foo</code> but rather to the function object <code>Foo</code>. Because of
-that, the prototype chain will go over <code>Function.prototype</code>, which results
-in <code>method</code> not being on it.</p>
+the prototype of <code>Foo</code> but rather to the function object <code>Foo</code>. So the 
+prototype chain will go over <code>Function.prototype</code> and not <code>Foo.prototype</code>;
+therefore, <code>method</code> will not be on the prototype chain.</p>
 </aside>
 </section><section><header><h3>Property lookup</h3></header>
 <p>When accessing the properties of an object, JavaScript will traverse the
@@ -170,14 +192,14 @@ prototype chain <strong>upwards</strong> until it finds a property with the requ
 hasn't found the specified property, it will return the value
 <a href="#undefined">undefined</a> instead.</p>
 </section><section><header><h3>The prototype property</h3></header>
-<p>The <code>prototype</code> property is in no way special, it is possible to assign <strong>any</strong>
-given value to it, although primitives will simply get ignored.</p>
-<pre><code>function Foo() {
-}
+<p>While the prototype property is used by the language to build the prototype
+chains, it is still possible to assign <strong>any</strong> given value to it. Although 
+primitives will simply get ignored when assigned as a prototype.</p>
+<pre><code>function Foo() {}
 Foo.prototype = 1; // no effect
 </code></pre>
-<p>Assigning objects on the other hand allows for dynamic creation of prototype
-chains.</p>
+<p>Assigning objects on the other hand will work, and allows for dynamic creation of
+prototype chains.</p>
 <pre><code>function Foo() {
     this.value = 42;
 }
@@ -199,41 +221,40 @@ Object.prototype: {toString: ... /* etc. */};
 </code></pre>
 <p>Now <code>Bar.prototype</code> points to an <em>instance</em> of <code>Foo</code>; thus, the property
 <code>value</code> of that very instance is now on the prototype chain. And since <code>Foo</code> 
-itself has a prototype, the chain continues with that one afterwards.</p>
+itself has a prototype, the chain goes on with that one afterwards.</p>
 </section><section><header><h3>Performance</h3></header>
-<p>As a result of all of this this, the lookup time for properties that are high up 
-the prototype chain can have a negative impact on performance critical code. 
-Accessing non existent properties will always traverse the complete chain. </p>
+<p>The lookup time for properties that are high up on the prototype chain can have a
+negative impact on performance critical sections of code. Additionally, tying to 
+access non-existent properties will always traverse the full prototype chain. </p>
 <p>Also, when <a href="#the-for-in-loop">iterating</a> over the properties of an object 
 <strong>every</strong> property that is on the prototype chain will get enumerated.</p>
 </section><section><header><h3>Extension of native prototypes</h3></header>
-<p>One mis-feature that is often used is to extend <code>Object.prototype</code> or on of the
+<p>One mis-feature that is often used is to extend <code>Object.prototype</code> or one of the
 other built in prototypes.</p>
-<p>This technique is called <a href="http://en.wikipedia.org/wiki/Monkey_patch">monkey patching</a> and breaks <em>encapsulation</em> at its
-very root. While used by widely spread frameworks such as <a href="http://prototypejs.org/">Prototype</a>, there
-is still no good reason for cluttering built in types with additional
-non-standard functionality.</p>
+<p>This technique is called <a href="http://en.wikipedia.org/wiki/Monkey_patch">monkey patching</a> and breaks <em>encapsulation</em>. While 
+used by widely spread frameworks such as <a href="http://prototypejs.org/">Prototype</a>, there is still no good 
+reason for cluttering built in types with additional non-standard functionality.</p>
 <p>The <strong>only</strong> good reason for extending a built in prototype is to back port 
-the features of newer JavaScript engines to older ones; for example, 
+the features of newer JavaScript engines; for example, 
 <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/forEach"><code>Array.forEach</code></a>.</p>
 </section><section><header><h3>In conclusion</h3></header>
 <p>It is a must to understand the prototypical inheritance model completely before
-writing complex code which makes use of it. Also, watching the length of all the 
+writing complex code which makes use of it. Also, watching the length of the 
 prototype chains and breaking them up if necessary can avoid possible performance
 issues. Further, the native prototypes should <strong>never</strong> be extended unless it is
-down for the sake of compatibility with newer JavaScript features.</p></section></article>
+for the sake of compatibility with newer JavaScript features.</p></section></article>
 
 <article><section><header><h2 id="hasownproperty"><code>hasOwnProperty</code> <a href="#intro">^</a></h2></header>
-<p>In order to check whether a object has a property defined on <strong>itself</strong> and 
-not somewhere on its <a href="#prototype">prototype chain</a>, it is necessary to use the 
+<p>In order to check whether a object has a property defined on itself and <strong>not</strong> 
+somewhere on its <a href="#prototype">prototype chain</a>, it is necessary to use the 
 <code>hasOwnProperty</code> method which all objects inherit from <code>Object.prototype</code>.</p>
 <aside>
-<p><strong>Note:</strong> It is <strong>not</strong> enough checking for a property being <code>undefined</code>. The
-property  might very well exist, but its value just happens to be set to 
+<p><strong>Note:</strong> It is <strong>not</strong> enough to check whether a property is <code>undefined</code>. The
+property might very well exist, but its value just happens to be set to 
 <code>undefined</code>.</p>
 </aside>
 <p><code>hasOwnProperty</code> is the only thing in JavaScript which deals with properties and 
-does <strong>not</strong> traverse the prototype chain, everything else does.</p>
+does <strong>not</strong> traverse the prototype chain.</p>
 <pre><code>// Poisoning Object.prototype
 Object.prototype.bar = 1; 
 var foo = {goo: undefined};
@@ -245,20 +266,20 @@ foo.hasOwnProperty('bar'); // false
 foo.hasOwnProperty('goo'); // true
 </code></pre>
 <p>Only <code>hasOwnProperty</code> will give the correct and expected result. This is 
-essential when iterating over the properties of any object, since there is no 
-other way to exclude things that are not defined on the object <strong>itself</strong> but 
-rather are somewhere on its prototype chain.<br />
+essential when iterating over the properties of any object. There is no other 
+way to exclude properties that are not defined on the object <strong>itself</strong>, but 
+somewhere on its prototype chain.<br />
 </p>
 </section><section><header><h3>In conclusion</h3></header>
 <p>When checking for the existence of a property on a object, <code>hasOwnProperty</code> is 
-the <strong>only</strong> way to go. It is also recommended to make sure that <code>hasOwnProperty</code>
-is part of <strong>every</strong> <a href="#forinloop"><code>for in</code> loop</a> to avoid errors from extended
-native <a href="#prototype">prototypes</a>.</p></section></article>
+the <strong>only</strong> method of doing so. It is also recommended to make <code>hasOwnProperty</code>
+part of <strong>every</strong> <a href="#forinloop"><code>for in</code> loop</a>, this will avoid errors from 
+extended native <a href="#prototype">prototypes</a>.</p></section></article>
 
 <article><section><header><h2 id="functions">Functions and statements <a href="#intro">^</a></h2></header>
 <p>Functions in JavaScript are first class objects, which means that they can be 
 passed around like any other value. One common use of this feature is to pass
-<em>anonymous functions</em> as callbacks arguments to other functions. </p>
+an <em>anonymous function</em> as a callback to another, possible asynchronous function.</p>
 </section><section><header><h3>The <code>function</code> statement</h3></header>
 <pre><code>function foo() {}
 </code></pre>
@@ -271,8 +292,7 @@ function foo() {}
 </section><section><header><h3>The <code>function</code> expression</h3></header>
 <pre><code>var foo = function() {};
 </code></pre>
-<p>The above assigns the unnamed and, therefore, <em>anonymous</em> function, to the 
-variable <code>foo</code>. </p>
+<p>The above assigns the unnamed and - <em>anonymous</em> - function to the variable <code>foo</code>. </p>
 <pre><code>foo; // 'undefined'
 foo(); // this raises a TypeError
 var foo = function() {};
@@ -290,9 +310,9 @@ to <a href="#undefined">undefined</a> before the corresponding code is executed.
 bar(); // ReferenceError
 </code></pre>
 <p>Here <code>bar</code> is not available in the outer scope, since the function only gets
-assigned to <code>foo</code>, however, inside of <code>bar</code> it is available. This is due to the
-fact how <a href="#scopes">name resolution</a> in JavaScript works. The name of the function
-itself is always made available in the local scope of the function.</p>
+assigned to <code>foo</code>; however, inside of <code>bar</code> it <strong>is</strong> available. This is due to 
+how <a href="#scopes">name resolution</a> in JavaScript works, the name of the function
+is always made available in the local scope of the function itself.</p>
 </section><section><header><h3>The <code>var</code> statement</h3></header>
 <pre><code>function test() {
     if (foo) {
@@ -312,8 +332,9 @@ if (false) {
 <strong>not</strong> assign the value <code>2</code> to the <em>global</em> variable <code>bar</code>. It will rather 
 assign the value of <code>2</code> to the <em>local</em> variable <code>bar</code> of <code>test</code>. </p>
 <p>Also, while the statements inside the <code>if</code> block never get executed, the variable
-<code>foo</code> still gets created and defaults to the value of <code>undefined</code>.</p>
-</section><section><header><h3><code>var</code> vs. <code>function</code></h3></header>
+<code>foo</code> still gets created and defaults to the value of <code>undefined</code>; again, this
+is due to the lack of block scoping.</p>
+</section><section><header><h3>Order of parsing</h3></header>
 <p>All <code>var</code> statements get parsed <strong>before</strong> <code>function</code> statements; hence,
 subsequent statements will override the previous ones.</p>
 <pre><code>function foo() {}
@@ -524,9 +545,16 @@ will override the default <code>arguments</code> object.</p>
 </aside></section></article>
 
 <article><section><header><h2 id="scopes">Scopes and namespaces <a href="#intro">^</a></h2></header>
-<p>Although JavaScript deals fine with the block scope syntax of two matching curly
+<p>Although JavaScript deals fine with the block syntax of two matching curly
 braces, it does <strong>not</strong> support block scope; thus, all that is left is the 
 <em>function scope</em>.</p>
+<pre><code>function test() { // a scope
+    for(var i = 0; i &lt; 10; i++) { // not a scope
+        // count
+    }
+    console.log(i); // 10
+}
+</code></pre>
 <aside>
 <p><strong>Note:</strong> When not used in an assignment or as a function argument, the <code>{...}</code>
 notation will get interpreted as a block statement and <strong>not</strong> as an <code>Object</code>. 
@@ -964,7 +992,7 @@ to the object whose <code>[[Class]]</code> value should be retrieved.</p>
 </section><section><header><h3>Testing for undefined variables</h3></header>
 <pre><code>typeof foo !== 'undefined'
 </code></pre>
-<p>The above will check whether <code>foo</code> was actually declared or not, since just 
+<p>The above will check whether <code>foo</code> was actually declared or not; just 
 referencing it would result in a <code>ReferenceError</code>. This is the only thing
 <code>typeof</code> is actually useful for.</p>
 </section><section><header><h3>In conclusion</h3></header>
