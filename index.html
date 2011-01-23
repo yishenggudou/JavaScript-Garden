@@ -678,8 +678,8 @@ newly created <code>Object</code>. The <a href="#prototype"><code>prototype</cod
 set to the <code>prototype</code> of the function object that was called.</p>
 <p>If the function that was called has no explicit <code>return</code> statement, then it
 implicitly returns the value of <code>this</code> (the new object). Otherwise it returns
-the value of the <code>return</code> statement, <strong>but</strong> only if <code>typeof returnValue</code> is
-<code>object</code>.</p>
+the value of the <code>return</code> statement, <strong>but</strong> only if the return value is an
+object.</p>
 <pre><code>function Foo() {
     this.bla = 1;
 }
@@ -934,7 +934,8 @@ native prototypes have been extended or not. </p></section></article>
 <a href="#instanceof"><code>instanceof</code></a>) is probably the biggest 
 design flaw of JavaScript, as it is near of being <strong>completely broken</strong>.</p>
 <p>Although <code>instanceof</code> still has its limited uses, <code>typeof</code> really has only one
-practical use case, which <strong>not happens</strong> to be checking the type of an object. </p>
+practical use case, which does <strong>not</strong> happen to be checking the type of an 
+object. </p>
 <aside>
 <p><strong>Note:</strong> While <code>typeof</code> can also be called with a function like syntax
 i.e. <code>typeof(obj)</code>, this is not a function call. The two parenthesis will
