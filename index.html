@@ -22,7 +22,7 @@
 <li><a href="#functions">Functions</a></li>
 <li><a href="#this">How <code>this</code> works</a></li>
 <li><a href="#closures">Closures and references</a></li>
-<li><a href="#arguments">Function arguments</a></li>
+<li><a href="#arguments">The <code>arguments</code> object</a></li>
 <li><a href="#scopes">Scopes and namespaces</a></li>
 <li><a href="#constructors">Constructors</a></li>
 <li><a href="#equality">Equality and comparisons</a></li>
@@ -72,7 +72,7 @@ function Foo(){}
 Foo.bar = 1;
 Foo.bar; // 1
 </code></pre>
-<p>A mis-assumption that is commonly made, is that number literals cannot be used as
+<p>A common misconception is that number literals cannot be used as
 objects. That is because a flaw in JavaScript's parser tries to parse the <em>dot 
 notation</em> on a number as a floating point literal.</p>
 <pre><code>2.toString(); // raises SyntaxError
@@ -95,7 +95,7 @@ object <a href="#prototype">inherits</a> from <code>Object.prototype</code> and 
 var bar = {test: 12};
 </code></pre>
 </section><section><header><h3>Accessing properties</h3></header>
-<p>The properties of an object can be accessed in two ways. Either via the dot
+<p>The properties of an object can be accessed in two ways, via either the dot
 notation, or the square bracket notation.</p>
 <pre><code>var foo = {name: 'Kitten'}
 foo.name; // kitten
@@ -107,7 +107,7 @@ foo[get]; // kitten
 foo.1234; // SyntaxError
 foo['1234']; // works
 </code></pre>
-<p>Both notations are identical in their workings, the only difference being that
+<p>Both notations are identical in their workings, with the only difference being that
 the square bracket notation allows for dynamic setting of properties, as well as
 the use of property names that would otherwise lead to a syntax error.</p>
 </section><section><header><h3>Deleting properties</h3></header>
@@ -129,7 +129,7 @@ for(var i in obj) {
     }
 }
 </code></pre>
-<p>The aboves outputs both <code>bar undefined</code> and <code>foo null</code>, only <code>baz</code> got actually
+<p>The above outputs both <code>bar undefined</code> and <code>foo null</code> - only <code>baz</code> got actually
 removed and is therefore missing from the output.</p>
 </section><section><header><h3>Notation of keys</h3></header>
 <pre><code>var test = {
@@ -138,7 +138,7 @@ removed and is therefore missing from the output.</p>
 };
 </code></pre>
 <p>Object properties can be both notated as plain characters and as strings. Due to
-another mis-design in JavaScript's parser, prior to EcmaScript 5 the above threw 
+another mis-design in JavaScript's parser, prior to ECMAScript 5 the above will throw 
 a <code>SyntaxError</code>.</p>
 <p>This error arises from the fact that <code>delete</code> is a <em>keyword</em> of the language;
 therefore, it must be notated as a string literal in order to ensure working
@@ -359,6 +359,10 @@ can be bound in the language.</p>
 <pre><code>foo();
 </code></pre>
 <p>Here <code>this</code> will again refer to the <em>global</em> object.</p>
+<aside>
+<p><strong>ES5 Note:</strong> In strict mode, <code>this</code> will <strong>no longer</strong> refer to the global object. 
+It will instead have the value of <code>undefined</code>.</p>
+</aside>
 </section><section><header><h3>Calling a method</h3></header>
 <pre><code>test.foo();
 </code></pre>
@@ -513,13 +517,17 @@ above.</p>
 }
 </code></pre></section></article>
 
-<article><section><header><h2 id="arguments">Function arguments <a href="#intro">^</a></h2></header>
-<p>JavaScript injects a special variable called <code>arguments</code> into the scope of every
-function. This variable holds a list of all the arguments that were passed to 
-the function.</p>
-<p>This <code>arguments</code> variable is <strong>not</strong> an <code>Array</code>. It has some of the semantics of
-an array - namely the <code>length</code> property - but it does not inherit from 
-<code>Array.prototype</code>, it is in fact an <code>Object</code>.</p>
+<article><section><header><h2 id="arguments">The <code>arguments</code> object <a href="#intro">^</a></h2></header>
+<p>Every function scope in JavaScript can access the special variable <code>arguments</code>.
+This variable holds a list of all the arguments that were passed to the function.</p>
+<aside>
+<p><strong>Note:</strong> In case <code>arguments</code> has already been defined inside the functions
+scope either via a <code>var</code> statement or being the name of a formal parameter,
+the <code>arguments</code> object will not be created.</p>
+</aside>
+<p>The <code>arguments</code> variable is <strong>not</strong> an <code>Array</code>. While it has some of the 
+semantics of an array - namely the <code>length</code> property - it does not inherit from 
+<code>Array.prototype</code> and is in fact an <code>Object</code>.</p>
 <p>Due to this, it is not possible to use standard array methods like <code>push</code>,
 <code>pop</code> or <code>slice</code> on <code>arguments</code>. While iteration with a plain <code>for</code> loop works 
 just fine, it is necessary to convert it to a real <code>Array</code> in order to use the 
@@ -531,10 +539,55 @@ array like methods on it.</p>
 </code></pre>
 <p>This conversion is <strong>slow</strong>, it is not recommended to use it in performance 
 critical sections of code.</p>
+</section><section><header><h3>Modification "magic"</h3></header>
+<p>The <code>arguments</code> object creates getter and setter functions for both its properties
+as well as the functions formal parameters.</p>
+<p>As a result, changing the value of a formal parameter will also change the value
+corresponding formal parameter, and the other way around.</p>
+<pre><code>function foo(a, b, c) {
+    arguments[0] = 2;
+    a; // 2
+
+    b = 4;
+    arguments[1]; // 4
+
+    var d = c;
+    d = 9;
+    c; // 3
+}
+foo(1, 2, 3);
+</code></pre>
 <aside>
-<p><strong>Note:</strong> Do <strong>not</strong> use <code>arguments</code> as the name of a function parameter, due 
-to the fact how <a href="#scopes">name resolution</a> in JavaScript works, the parameter 
-will override the default <code>arguments</code> object.</p>
+<p><strong>ES5 Note:</strong> These getters and setters are not created in strict mode.</p>
+</aside>
+</section><section><header><h3>Performance myths and truths</h3></header>
+<p>The <code>arguments</code> is, except for the two cases named at the start of this section,
+always created. It doesn't matter whether it is used or not. Both getters and
+setters are <strong>always</strong> created; thus, using it has nearly no performance impact
+at all, especially not in real world code where there is more than an access to
+the arguments object properties.</p>
+<p>However, there is one case which will drastically reduce the performance in
+modern JavaScript engines. That case is the use of <code>arguments.callee</code>.</p>
+<pre><code>function foo() {
+    arguments.callee; // do something with this function object
+    arguments.callee.caller; // and the calling function object
+}
+
+function bigLoop() {
+    for(var i = 0; i &lt; 100000; i++) {
+        foo(); // Would normally be inlined...
+    }
+}
+</code></pre>
+<p>In the above code, <code>foo</code> can no longer be a subject to <a href="http://en.wikipedia.org/wiki/Inlining">inlining</a> since it 
+needs to know about both itself and its caller. This not only defeats possible 
+performance gains due to inlining, it also breaks encapsulation since the 
+function may now be dependent on being called in a specific context.</p>
+<p>It is highly recommended to <strong>never</strong> make use of <code>arguments.callee</code> or any of 
+its properties.</p>
+<aside>
+<p><strong>ES5 Note:</strong> In strict mode, <code>arguments.callee</code> will throw a <code>TypeError</code> since 
+its use has been deprecated.</p>
 </aside></section></article>
 
 <article><section><header><h2 id="scopes">Scopes and namespaces <a href="#intro">^</a></h2></header>
@@ -972,17 +1025,18 @@ following strings. <code>Arguments</code>, <code>Array</code>, <code>Boolean</co
 <p>In order to retrieve the value of <code>[[Class]]</code> one can has to make use of the
 <code>toString</code> method of <code>Object</code>.</p>
 </section><section><header><h3>The Class of an object</h3></header>
-<p>The specification gives exactly one way of accessing the <code>[[Class]]</code> value.</p>
+<p>The specification gives exactly one way of accessing the <code>[[Class]]</code> value,
+which the use of <code>Object.prototype.toString</code>. </p>
 <pre><code>function is(type, obj) {
-    var cls = Object.prototype.toString.call(obj).slice(8, -1);
-    return cls === type;
+    var clas = Object.prototype.toString.call(obj).slice(8, -1);
+    return obj !== undefined &amp;&amp; obj !== null &amp;&amp; clas === type;
 }
 
 is('String', 'test'); // true
 is('String', new String('test')); // true
 </code></pre>
-<p><code>Object.prototype.toString</code> gets called with the value of <a href="#this">this</a> being set
-to the object whose <code>[[Class]]</code> value should be retrieved.</p>
+<p>In the above example, <code>Object.prototype.toString</code> gets called with the value of
+<a href="#this">this</a> being set to the object whose <code>[[Class]]</code> value should be retrieved.</p>
 </section><section><header><h3>Testing for undefined variables</h3></header>
 <pre><code>typeof foo !== 'undefined'
 </code></pre>
@@ -1322,6 +1376,23 @@ different behavior.</p>
 {
     foo: 1
 };
+</code></pre>
+</section><section><header><h3>Missing semicolons and evaluation</h3></header>
+<pre><code>var foo = function() {
+} // missing semicolon after assignment
+
+(function() {
+    // do something in it's own scope
+})();
+</code></pre>
+<p>Again, the above code will behave <strong>drastically different</strong>.</p>
+<pre><code>var foo = function(){
+
+}( // The parser does NOT insert a semicolon here
+    // call the anonymous function and pass another function in
+    function() {
+    }
+)() // now call the result of the previous call
 </code></pre>
 </section><section><header><h3>In conclusion</h3></header>
 <p>Semicolons should <strong>never</strong> be omitted, it is also recommended to keep braces 
