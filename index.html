@@ -56,6 +56,10 @@ the excellent <a href="https://developer.mozilla.org/en/JavaScript/Guide">guide<
 <p>If case you are interested in additional guidance or reviews concerning your JavaScript 
 projects, Ivo Wetzel offers these on a freelance basis. Please feel free to 
 contact him via <a href="mailto:ivo.wetzel@googlemail.com">e-mail</a> for further details.</p>
+</section><section><header><h3>Contributors</h3></header>
+<ul>
+<li><a href="https://github.com/caio">Caio Romão</a> (Spelling corrections)</li>
+</ul>
 </section><section><header><h3>License</h3></header>
 <p>JavaScript Garden is published under the <a href="https://github.com/BonsaiDen/JavaScript-Garden/blob/next/LICENSE">MIT license</a> and hosted on
 <a href="https://github.com/BonsaiDen/JavaScript-Garden">GitHub</a>. If you find errors or typos please <a href="https://github.com/BonsaiDen/JavaScript-Garden/issues">file an issue</a> or a pull 
@@ -337,7 +341,7 @@ assign the value of <code>2</code> to the <em>local</em> variable <code>bar</cod
 <code>foo</code> still gets created and defaults to the value of <code>undefined</code>; again, this
 is due to the lack of block scoping.</p>
 </section><section><header><h3>Order of parsing</h3></header>
-<p>All <code>var</code> statements get parsed <strong>before</strong> <code>function</code> declartions; hence,
+<p>All <code>var</code> statements get parsed <strong>before</strong> <code>function</code> declarations; hence,
 subsequent statements will override the previous ones.</p>
 <pre><code>function foo() {}
 var foo;
@@ -868,7 +872,7 @@ where types need to be coerced, it should be done <a href="#casting">explicitly<
 left to the "magic" of the languages complicated coercing rules.</p></section></article>
 
 <article><section><header><h2 id="arrays">Arrays <a href="#intro">^</a></h2></header>
-<p>Although arrays in JavaScript are objects, there is are no good reasons to use
+<p>Although arrays in JavaScript are objects, there are no good reasons to use
 the <a href="#forinloop">for in loop</a> in for iteration on them. In fact there are a 
 number of good reasons <strong>against</strong> the use of <code>for in</code> on arrays.</p>
 <aside>
@@ -1079,7 +1083,7 @@ objects that origin from the same JavaScript context. Just like the
 <a href="#typeof"><code>typeof</code></a> operator, every other use of it should be <strong>avoided</strong>.</p></section></article>
 
 <article><section><header><h2 id="casting">Type casting <a href="#intro">^</a></h2></header>
-<p>JavaScript is a <em>weakly typed</em> language, so it will apply <em>type ceorcion</em>
+<p>JavaScript is a <em>weakly typed</em> language, so it will apply <em>type coercion</em>
 wherever possible.</p>
 <pre><code>// These are true
 new Number(10) == 10; // Number.toString() is converted
@@ -1218,7 +1222,7 @@ first place, a <strong>better</strong> design should be used that does not requi
 <p>Since JavaScript is asynchronous, it is possible to schedule the execution of a 
 function by using the <code>setTimeout</code> and <code>setInterval</code> functions.</p>
 <aside>
-<p><strong>Note:</strong> Timeouts are <strong>not</strong> part of the EcmaScript Standard, they are
+<p><strong>Note:</strong> Timeouts are <strong>not</strong> part of the ECMAScript Standard, they are
 implemented as part of the <a href="http://en.wikipedia.org/wiki/Document_Object_Model"><abbr title="Document Object Model"><abbr title="Document Object Model">DOM</abbr></abbr></a>.</p>
 </aside>
 <pre><code>function foo() {}
@@ -1366,7 +1370,7 @@ has a property called <code>foo</code>, it will instead simply return <code>unde
     foo: 1 // JavaScript supports single expression evaluation
            // So 1 evaluates to 1 and no error is being raised
 
-} // Automatic semicolon insertioN
+} // Automatic semicolon insertion
 </code></pre>
 <p>After the parser has done its "magic", the resulting code has completely
 different behavior.</p>
