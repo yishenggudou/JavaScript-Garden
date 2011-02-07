@@ -381,8 +381,8 @@ created <code>Object</code>.</p>
 <pre><code>function foo(a, b, c) {}
 
 var bar = {};
-foo.call(bar, [1, 2, 3]);
-foo.apply(bar, 1, 2, 3);
+foo.apply(bar, [1, 2, 3]); // array will expand to the below
+foo.call(bar, 1, 2, 3); // results in a = 1, b = 2, c = 3
 </code></pre>
 <p>When using the <code>call</code> or <code>apply</code> methods of <code>Function.prototype</code>, the value of
 <code>this</code> inside the called function gets explicitly set to the first argument of
@@ -422,7 +422,7 @@ pass <code>this</code> values around.</p>
 </section><section><header><h3>Assigning methods</h3></header>
 <p>Another thing that does <strong>not</strong> work in JavaScript is <strong>assigning</strong> a method
 reference to a variable.</p>
-<pre><code>var test = someObject.methodTest();
+<pre><code>var test = someObject.methodTest;
 test();
 </code></pre>
 <p>Again due to the first case <code>test</code> now acts like like a plain function call;
