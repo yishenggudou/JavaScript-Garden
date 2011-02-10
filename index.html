@@ -1051,7 +1051,7 @@ referencing it would result in a <code>ReferenceError</code>. This is the only t
 <p>In order to check the type of an object, it is highly recommended to use 
 <code>Object.prototype.toString</code>; as this is the only reliable way of doing so. 
 As shown in the above type table, some return values of <code>typeof</code> are not defined 
-in the specification; thus, the can across various implementations.</p>
+in the specification; thus, they can differ across various implementations.</p>
 <p>Unless checking whether a variable is defined, <code>typeof</code> should be avoided at
 <strong>all costs</strong>.</p></section></article>
 
@@ -1161,8 +1161,8 @@ meaning that it can be easily overwritten which then leads to abstruse bugs. </p
 value does not change the value of the <strong>type</strong> <code>undefined</code>.</p>
 <p>Still, in order to compare something against the value of <code>undefined</code> it is
 necessary to retrieve the value of <code>undefined</code> in the first place.</p>
-<p>In order to protect code against a possible overwritten <code>undefined</code> variable a 
-, common technique used is to add an additional parameter to the encapsulation
+<p>In order to protect code against a possible overwritten <code>undefined</code> variable, a 
+common technique used is to add an additional parameter to the encapsulation
 <a href="#scopes">anonymous wrapper</a>, which gets no argument passed to it.</p>
 <pre><code>var undefined = 123;
 (function(something, foo, undefined) {
