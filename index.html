@@ -46,19 +46,20 @@ quirky parts of the JavaScript programming language. It gives advice to
 avoid common mistakes, subtle bugs, as well as performance issues and bad 
 practices that non-expert JavaScript programmers may encounter on their 
 endeavours into the depths of the language.</p>
-<p>JavaScript Garden does <strong>not</strong> insist on teaching JavaScript. Former knowledge
+<p>JavaScript Garden does <strong>not</strong> aim to teach you JavaScript. Former knowledge
 of the language is strongly recommended in order to understand the topics covered
 in this guide. In order to learn the basics of the language, please head over to 
 the excellent <a href="https://developer.mozilla.org/en/JavaScript/Guide">guide</a> on the Mozilla Developer Network.</p>
 </section><section><header><h3>The authors</h3></header>
 <p>This guide is the work of two lovely Stack Overflow users, <a href="http://stackoverflow.com/users/170224/ivo-wetzel">Ivo Wetzel</a>
 (Writing) and <a href="http://stackoverflow.com/users/313758/yi-jiang">Zhang Yi Jiang</a> (Design).</p>
-<p>If case you are interested in additional guidance or reviews concerning your JavaScript 
+<p>In case you are interested in additional guidance or reviews concerning your JavaScript 
 projects, Ivo Wetzel offers these on a freelance basis. Please feel free to 
 contact him via <a href="mailto:ivo.wetzel@googlemail.com">e-mail</a> for further details.</p>
 </section><section><header><h3>Contributors</h3></header>
 <ul>
 <li><a href="https://github.com/caio">Caio Romão</a> (Spelling corrections)</li>
+<li><a href="https://github.com/blixt">Andreas Blixt</a> (Language corrections)</li>
 </ul>
 </section><section><header><h3>License</h3></header>
 <p>JavaScript Garden is published under the <a href="https://github.com/BonsaiDen/JavaScript-Garden/blob/next/LICENSE">MIT license</a> and hosted on
@@ -186,7 +187,7 @@ defined on <code>Foo</code>. But it will not have access to the property <code>v
 <code>Foo</code> instance, since that property gets defined in the <a href="#constructor">constructor</a>
 of <code>Foo</code>. But this constructor has to be called explicitly.</p>
 <aside>
-<p><strong>Note:</strong> Do <strong>not</strong> use <code>Bar.property = Foo</code>, since it will not point to 
+<p><strong>Note:</strong> Do <strong>not</strong> use <code>Bar.prototype = Foo</code>, since it will not point to 
 the prototype of <code>Foo</code> but rather to the function object <code>Foo</code>. So the 
 prototype chain will go over <code>Function.prototype</code> and not <code>Foo.prototype</code>;
 therefore, <code>method</code> will not be on the prototype chain.</p>
