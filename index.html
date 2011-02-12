@@ -6,7 +6,7 @@
         <title>JavaScript Garden</title>
         
         <meta name="description" content="Guide to JavaScript's Quirks and Flaws">
-        <link rel="stylesheet" href="css/garden.css" media="screen">
+        <link rel="stylesheet" href="css/garden.css" media="all">
         <link rel="stylesheet" href="css/print.css" media="print">
     </head>
 
@@ -64,10 +64,11 @@ contact him via <a href="mailto:ivo.wetzel@googlemail.com">e-mail</a> for furthe
 </section><section><header><h3>License</h3></header>
 <p>JavaScript Garden is published under the <a href="https://github.com/BonsaiDen/JavaScript-Garden/blob/next/LICENSE">MIT license</a> and hosted on
 <a href="https://github.com/BonsaiDen/JavaScript-Garden">GitHub</a>. If you find errors or typos please <a href="https://github.com/BonsaiDen/JavaScript-Garden/issues">file an issue</a> or a pull 
-request on the repository.</p></section></article>
+request on the repository. You can also find us in the <a href="http://chat.stackoverflow.com/rooms/17/javascript">JavaScript room</a> on
+Stack Overflow chat. </p></section></article>
             </header>
 
-            <article><section><header><h2 id="objects">Objects <a href="#intro">^</a></h2></header>
+            <article><section><header><h2 id="objects">Objects <a href="#intro">#top</a></h2></header>
 <p>Everything in JavaScript acts like an object, with the only two exceptions being 
 <a href="#undefined"><code>null</code></a> and <a href="#undefined"><code>undefined</code></a>.</p>
 <pre><code>false.toString() // 'false'
@@ -85,7 +86,7 @@ notation</em> on a number as a floating point literal.</p>
 <p>There are a couple of workarounds which can be used in order make number 
 literals act as object too.</p>
 <pre><code>2..toString(); // the second point is correctly recognized
-2. toString(); // note the space
+2 .toString(); // note the space left to the dot
 (2).toString(); // 2 is evaluated first
 </code></pre>
 </section><section><header><h3>Objects as a data type</h3></header>
@@ -149,7 +150,7 @@ a <code>SyntaxError</code>.</p>
 therefore, it must be notated as a string literal in order to ensure working
 code under older JavaScript engines.</p></section></article>
 
-<article><section><header><h2 id="prototype">The prototype <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="prototype">The prototype <a href="#intro">#top</a></h2></header>
 <p>JavaScript does not feature the classical inheritance model, instead it uses a 
 <em>prototypical</em> one. </p>
 <p>While this is often considered to be one of JavaScript's weaknesses, the 
@@ -251,7 +252,7 @@ prototype chains and breaking them up if necessary can avoid possible performanc
 issues. Further, the native prototypes should <strong>never</strong> be extended unless it is
 for the sake of compatibility with newer JavaScript features.</p></section></article>
 
-<article><section><header><h2 id="hasownproperty"><code>hasOwnProperty</code> <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="hasownproperty"><code>hasOwnProperty</code> <a href="#intro">#top</a></h2></header>
 <p>In order to check whether a object has a property defined on itself and <strong>not</strong> 
 somewhere on its <a href="#prototype">prototype chain</a>, it is necessary to use the 
 <code>hasOwnProperty</code> method which all objects inherit from <code>Object.prototype</code>.</p>
@@ -283,7 +284,7 @@ the <strong>only</strong> method of doing so. It is also recommended to make <co
 part of <strong>every</strong> <a href="#forinloop"><code>for in</code> loop</a>, this will avoid errors from 
 extended native <a href="#prototype">prototypes</a>.</p></section></article>
 
-<article><section><header><h2 id="functions">Functions <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="functions">Functions <a href="#intro">#top</a></h2></header>
 <p>Functions in JavaScript are first class objects, which means that they can be 
 passed around like any other value. One common use of this feature is to pass
 an <em>anonymous function</em> as a callback to another, possible asynchronous function.</p>
@@ -352,7 +353,7 @@ var foo = 2;
 foo; // 2
 </code></pre></section></article>
 
-<article><section><header><h2 id="this">How <code>this</code> works <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="this">How <code>this</code> works <a href="#intro">#top</a></h2></header>
 <p>JavaScript has a different concept of what <code>this</code> refers to than most other
 languages do. There are exactly <strong>five</strong> different ways in which the value of <code>this</code> 
 can be bound in the language.</p>
@@ -441,7 +442,7 @@ new Bar().method();
 <p>When <code>method</code> gets called on a instance of <code>Bar</code>, <code>this</code> will now refer to that
 instance.</p></section></article>
 
-<article><section><header><h2 id="closures">Closures and references <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="closures">Closures and references <a href="#intro">#top</a></h2></header>
 <p>One of JavaScript's most powerful features is the availability of <em>closures</em>,
 this means that scopes <strong>always</strong> keep access to the outer scope they were
 defined in. Since the only scope that JavaScript has is the 
@@ -522,7 +523,7 @@ above.</p>
 }
 </code></pre></section></article>
 
-<article><section><header><h2 id="arguments">The <code>arguments</code> object <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="arguments">The <code>arguments</code> object <a href="#intro">#top</a></h2></header>
 <p>Every function scope in JavaScript can access the special variable <code>arguments</code>.
 This variable holds a list of all the arguments that were passed to the function.</p>
 <aside>
@@ -595,7 +596,7 @@ its properties.</p>
 its use has been deprecated.</p>
 </aside></section></article>
 
-<article><section><header><h2 id="scopes">Scopes and namespaces <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="scopes">Scopes and namespaces <a href="#intro">#top</a></h2></header>
 <p>Although JavaScript deals fine with the syntax of two matching curly
 braces for blocks, it does <strong>not</strong> support block scope; hence, all that is left 
 is in the language is <em>function scope</em>.</p>
@@ -728,7 +729,7 @@ also allows for better modularization.</p>
 <p>Additionally, the use of global variables is considered <strong>bad practice</strong>, any use
 of them indicates badly written code that is prone to errors and hard to maintain.</p></section></article>
 
-<article><section><header><h2 id="constructors">Constructors <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="constructors">Constructors <a href="#intro">#top</a></h2></header>
 <p>Constructors in JavaScript are yet again different from many other languages. Any
 function call that is preceded by the <code>new</code> keyword acts as a constructor.</p>
 <p>Inside the constructor (the called function) the value of <code>this</code> refers to a 
@@ -814,7 +815,7 @@ reason to drop the use of prototypes altogether. In the end it comes down to
 which solution is better suited for the needs of the application, it is especially
 important to choose a specific style of object creation <strong>and</strong> stick with it.</p></section></article>
 
-<article><section><header><h2 id="equality">Equality and comparisons <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="equality">Equality and comparisons <a href="#intro">#top</a></h2></header>
 <p>JavaScript has two different ways of comparing the values of objects for else
 equality. </p>
 </section><section><header><h3>The equals operator</h3></header>
@@ -872,7 +873,7 @@ and a pointer comparison in C do.</p>
 where types need to be coerced, it should be done <a href="#casting">explicitly</a> and not
 left to the "magic" of the languages complicated coercing rules.</p></section></article>
 
-<article><section><header><h2 id="arrays">Arrays <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="arrays">Arrays <a href="#intro">#top</a></h2></header>
 <p>Although arrays in JavaScript are objects, there are no good reasons to use
 the <a href="#forinloop">for in loop</a> in for iteration on them. In fact there are a 
 number of good reasons <strong>against</strong> the use of <code>for in</code> on arrays.</p>
@@ -921,7 +922,7 @@ badly written code that is prone to bugs and bad performance. Additionally,
 never should any assumptions be made whether the JavaScript engine will apply 
 optimization to the code or not.</p></section></article>
 
-<article><section><header><h2 id="arrayctor">The <code>Array</code> constructor <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="arrayctor">The <code>Array</code> constructor <a href="#intro">#top</a></h2></header>
 <p>Since the <code>Array</code> constructor is ambiguous in how it deals with its parameters,
 it is recommended to always use the <code>[]</code> notation when creating new arrays.</p>
 <pre><code>[1, 2, 3]; // Result: [1, 2, 3]
@@ -943,7 +944,7 @@ which it avoids the use of a <code>for</code> loop.</p>
 notation is definitely preferred. It is shorter and has a clearer syntax; thus, 
 it also  increases the readability of code.</p></section></article>
 
-<article><section><header><h2 id="forinloop">The <code>for in</code> loop <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="forinloop">The <code>for in</code> loop <a href="#intro">#top</a></h2></header>
 <p>Just like the <code>in</code> operator, the <code>for in</code> loop also traverses the prototype
 chain when iterating over the properties of an object.</p>
 <aside>
@@ -987,7 +988,7 @@ guaranteed to break.</p>
 assumptions be made about the environment the code is running in, or whether the 
 native prototypes have been extended or not. </p></section></article>
 
-<article><section><header><h2 id="typeof">The <code>typeof</code> operator <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="typeof">The <code>typeof</code> operator <a href="#intro">#top</a></h2></header>
 <p>The <code>typeof</code> operator (together with 
 <a href="#instanceof"><code>instanceof</code></a>) is probably the biggest 
 design flaw of JavaScript, as it is near of being <strong>completely broken</strong>.</p>
@@ -1056,7 +1057,7 @@ in the specification; thus, they can differ across various implementations.</p>
 <p>Unless checking whether a variable is defined, <code>typeof</code> should be avoided at
 <strong>all costs</strong>.</p></section></article>
 
-<article><section><header><h2 id="instanceof">The <code>instanceof</code> operator <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="instanceof">The <code>instanceof</code> operator <a href="#intro">#top</a></h2></header>
 <p>The <code>instanceof</code> operator compares the constructors of its two operands. It is 
 only useful when comparing custom made objects. Using it on built in types is
 nearly as useless as the <a href="#typeof">typeof operator</a>.</p>
@@ -1083,7 +1084,7 @@ in a web browser), since their constructors will not be the exact same object.</
 objects that origin from the same JavaScript context. Just like the
 <a href="#typeof"><code>typeof</code></a> operator, every other use of it should be <strong>avoided</strong>.</p></section></article>
 
-<article><section><header><h2 id="casting">Type casting <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="casting">Type casting <a href="#intro">#top</a></h2></header>
 <p>JavaScript is a <em>weakly typed</em> language, so it will apply <em>type coercion</em>
 wherever possible.</p>
 <pre><code>// These are true
@@ -1140,7 +1141,7 @@ value. </p>
 !!true;    // true
 </code></pre></section></article>
 
-<article><section><header><h2 id="undefined"><code>undefined</code> and <code>null</code> <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="undefined"><code>undefined</code> and <code>null</code> <a href="#intro">#top</a></h2></header>
 <p>JavaScript has two distinct values for "nothing", the more useful of those two
 being <code>undefined</code>.</p>
 </section><section><header><h3>The value <code>undefined</code></h3></header>
@@ -1180,7 +1181,7 @@ is more or less just another data type.</p>
 prototype chain by setting <code>Foo.prototype = null</code>), but in almost all cases it
 can be replaced by <code>undefined</code>.</p></section></article>
 
-<article><section><header><h2 id="eval">The evil <code>eval</code> <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="eval">The evil <code>eval</code> <a href="#intro">#top</a></h2></header>
 <p>The <code>eval</code> function will execute a string of JavaScript code in the local scope.</p>
 <pre><code>var foo = 1;
 function test() {
@@ -1219,7 +1220,7 @@ order to work, it is to be considered as magic and should <strong>not</strong> b
 first place, a <strong>better</strong> design should be used that does not require the use of
 <code>eval</code>.</p></section></article>
 
-<article><section><header><h2 id="timeouts"><code>setTimeout</code> and <code>setInterval</code> <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="timeouts"><code>setTimeout</code> and <code>setInterval</code> <a href="#intro">#top</a></h2></header>
 <p>Since JavaScript is asynchronous, it is possible to schedule the execution of a 
 function by using the <code>setTimeout</code> and <code>setInterval</code> functions.</p>
 <aside>
@@ -1345,7 +1346,7 @@ be passed which handles the actual calling. </p>
 <p>Additionally, <code>setInterval</code> should be avoided since it is hard to control and
 does not adjust to the single threaded nature of the language.</p></section></article>
 
-<article><section><header><h2 id="semicolon">Automatic semicolon insertion <a href="#intro">^</a></h2></header>
+<article><section><header><h2 id="semicolon">Automatic semicolon insertion <a href="#intro">#top</a></h2></header>
 <p>Although JavaScript has C style syntax, it does <strong>not</strong> enforce the use of
 semicolons in the source code. Since the parser still needs semicolons in order 
 to be able to figure out what the code should do, it inserts them 
