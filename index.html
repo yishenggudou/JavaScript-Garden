@@ -6,7 +6,7 @@
         <title>JavaScript Garden</title>
         
         <meta name="description" content="Guide to JavaScript's Quirks and Flaws">
-        <link rel="stylesheet" href="css/garden.css" media="all">
+        <link rel="stylesheet" href="css/garden.css" media="screen">
         <link rel="stylesheet" href="css/print.css" media="print">
     </head>
 
@@ -64,8 +64,7 @@ contact him via <a href="mailto:ivo.wetzel@googlemail.com">e-mail</a> for furthe
 </section><section><header><h3>License</h3></header>
 <p>JavaScript Garden is published under the <a href="https://github.com/BonsaiDen/JavaScript-Garden/blob/next/LICENSE">MIT license</a> and hosted on
 <a href="https://github.com/BonsaiDen/JavaScript-Garden">GitHub</a>. If you find errors or typos please <a href="https://github.com/BonsaiDen/JavaScript-Garden/issues">file an issue</a> or a pull 
-request on the repository. You can also find us in the <a href="http://chat.stackoverflow.com/rooms/17/javascript">JavaScript room</a> on
-Stack Overflow chat. </p></section></article>
+request on the repository.</p></section></article>
             </header>
 
             <article><section><header><h2 id="objects">Objects <a href="#intro">^</a></h2></header>
@@ -86,7 +85,7 @@ notation</em> on a number as a floating point literal.</p>
 <p>There are a couple of workarounds which can be used in order make number 
 literals act as object too.</p>
 <pre><code>2..toString(); // the second point is correctly recognized
-2 .toString(); // note the space left to the dot
+2. toString(); // note the space
 (2).toString(); // 2 is evaluated first
 </code></pre>
 </section><section><header><h3>Objects as a data type</h3></header>
