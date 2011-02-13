@@ -1064,9 +1064,14 @@ nearly as useless as the <a href="#typeof">typeof operator</a>.</p>
 </section><section><header><h3>Comparing custom objects</h3></header>
 <pre><code>function Foo() {}
 function Bar() {}
-Bar.prototype = Foo;
+Bar.prototype = new Foo();
 
 new Bar() instanceof Bar; // true
+new Bar() instanceof Foo; // true
+
+// This just sets Bar.prototype to the function object Foo
+// But not to an actual instance of Foo
+Bar.prototype = Foo;
 new Bar() instanceof Foo; // false
 </code></pre>
 </section><section><header><h3>Using <code>instanceof</code> with native types</h3></header>
