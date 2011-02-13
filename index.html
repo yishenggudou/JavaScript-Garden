@@ -162,6 +162,12 @@ features prototypical inheritance, it takes some time to adjust to the
 differences between the two models. </p>
 <p>The first major difference is that inheritance in JavaScript is done by using so
 called <em>prototype chains</em>.</p>
+<aside>
+<p><strong>Note:</strong> Simply using <code>Bar.prototype = Foo.prototype</code> will result in both objects
+sharing the <strong>same</strong> prototype. Therefore, changes to either object its prototype 
+will affect the other its prototype as well, which in most cases is not the 
+desired effect.</p>
+</aside>
 <pre><code>function Foo() {
     this.value = 42;
 }
@@ -171,16 +177,23 @@ Foo.prototype = {
 
 function Bar() {}
 
-// Set Bar's prototype to the prototype object of Foo
-Bar.prototype = Foo.prototype;
+// Set Bar's prototype to a new instance of Foo
+Bar.prototype = new Foo();
+Bar.prototype.foo = 'Hello World';
+
+// Make sure to list Bar as the actual constructor
+Bar.prototype.constructor = Bar;
 
 var test = new Bar() // create a new bar instance
 
 // The resulting prototype chain
-Object.prototype: {toString: ... /* etc. */};
-    Foo.prototype: {method: ...};
-        Bar.prototype: Foo.prototype
-            Bar.method()
+test [instance of Bar]
+    Bar.prototype [instance of Foo] 
+        { foo: 'Hello World' }
+        Foo.prototype
+            {method: ...};
+            Object.prototype
+                {toString: ... /* etc. */};
 </code></pre>
 <p>In the above, the object <code>test</code> will inherit from both <code>Bar.prototype</code> and
 <code>Foo.prototype</code>; hence, it will have access to the function <code>method</code> that was 
@@ -206,30 +219,8 @@ primitives will simply get ignored when assigned as a prototype.</p>
 <pre><code>function Foo() {}
 Foo.prototype = 1; // no effect
 </code></pre>
-<p>Assigning objects on the other hand will work, and allows for dynamic creation of
-prototype chains.</p>
-<pre><code>function Foo() {
-    this.value = 42;
-}
-Foo.prototype = {
-    method: function() {}
-};
-
-function Bar() {}
-
-Bar.prototype = new Foo();
-var boo = new Bar();
-
-// Resulting prototype chain
-Object.prototype: {toString: ... /* etc. */};
-    Foo.prototype: {method: ...};
-        [Foo Instance]: {value: 42};
-            Bar.prototype: [Foo Instance]
-                Bar.method()
-</code></pre>
-<p>Now <code>Bar.prototype</code> points to an <em>instance</em> of <code>Foo</code>; thus, the property
-<code>value</code> of that very instance is now on the prototype chain. And since <code>Foo</code> 
-itself has a prototype, the chain goes on with that one afterwards.</p>
+<p>Assigning objects, as shown in the example above, will work, and allows for dynamic
+creation of prototype chains.</p>
 </section><section><header><h3>Performance</h3></header>
 <p>The lookup time for properties that are high up on the prototype chain can have a
 negative impact on performance critical sections of code. Additionally, trying to 
