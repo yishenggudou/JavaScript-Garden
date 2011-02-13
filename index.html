@@ -287,7 +287,7 @@ extended native <a href="#prototype">prototypes</a>.</p></section></article>
 <article><section><header><h2 id="functions">Functions <a href="#intro">#top</a></h2></header>
 <p>Functions in JavaScript are first class objects, which means that they can be 
 passed around like any other value. One common use of this feature is to pass
-an <em>anonymous function</em> as a callback to another, possible asynchronous function.</p>
+an <em>anonymous function</em> as a callback to another, possibly asynchronous function.</p>
 </section><section><header><h3>The <code>function</code> declaration</h3></header>
 <pre><code>function foo() {}
 </code></pre>
@@ -563,15 +563,15 @@ corresponding formal parameter, and the other way around.</p>
 }
 foo(1, 2, 3);
 </code></pre>
-<aside>
-<p><strong>ES5 Note:</strong> These getters and setters are not created in strict mode.</p>
-</aside>
 </section><section><header><h3>Performance myths and truths</h3></header>
 <p>The <code>arguments</code> is, except for the two cases named at the start of this section,
 always created. It doesn't matter whether it is used or not. Both getters and
 setters are <strong>always</strong> created; thus, using it has nearly no performance impact
 at all, especially not in real world code where there is more than an access to
 the arguments object properties.</p>
+<aside>
+<p><strong>ES5 Note:</strong> These getters and setters are not created in strict mode.</p>
+</aside>
 <p>However, there is one case which will drastically reduce the performance in
 modern JavaScript engines. That case is the use of <code>arguments.callee</code>.</p>
 <pre><code>function foo() {
@@ -962,11 +962,11 @@ for(var i in foo) {
 </code></pre>
 <p>Since it is not possible to change the behavior of the <code>for in</code> loop itself, it
 is necessary to filter out the unwanted properties inside the loop body itself, 
-this is done by using the <a href="#hasownproperty"><code>hasOwnProperty</code></a> method of the 
-object. </p>
+this is done by using the <a href="#hasownproperty"><code>hasOwnProperty</code></a> method of 
+objects. </p>
 <aside>
 <p><strong>Note:</strong> Since the <code>for in</code> always traverses the complete prototype chain, it
-will get slow with each additional layer of inheritance added to an object.</p>
+will get slower with each additional layer of inheritance added to an object.</p>
 </aside>
 </section><section><header><h3>Using <code>hasOwnProperty</code> for filtering</h3></header>
 <pre><code>// still the foo from above
@@ -978,8 +978,8 @@ for(var i in foo) {
 </code></pre>
 <p>This version is the only correct one to use. Due to the use of <code>hasOwnPropery</code> it
 will <strong>only</strong> print out <code>moo</code>. When <code>hasOwnProperty</code> is left out, the code is 
-prone to errors when the native prototypes have been extended; for example,
-<code>Object.prototype</code>.</p>
+prone to errors when the native prototypes (for example,
+<code>Object.prototype</code>) have been extended.</p>
 <p>One widely used framework which does this is <a href="http://www.prototypejs.org/">Prototype</a>. When this 
 framework is included, <code>for in</code> loops that do not use <code>hasOwnProperty</code> are 
 guaranteed to break.</p>
@@ -1104,7 +1104,7 @@ isNaN(null) == false; // null converts to 0
 
 // These are false
 10 == 010;
-10 == '-10'
+10 == '-10';
 </code></pre>
 <aside>
 <p><strong>Note:</strong> Number literals that start with a <code>0</code> are interpreted as octal (Base
