@@ -1360,64 +1360,108 @@ does not adjust to the single threaded nature of the language.</p></section></ar
 
 <article><section><header><h2 id="semicolon">Automatic semicolon insertion <a href="#intro">#top</a></h2></header>
 <p>Although JavaScript has C style syntax, it does <strong>not</strong> enforce the use of
-semicolons in the source code. Since the parser still needs semicolons in order 
-to be able to figure out what the code should do, it inserts them 
-<strong>automatically</strong>.</p>
-<p>When the parser encounters an error due to newline that is not preceded by a 
-semicolon, it will insert a semicolon automatically and try again. When the
-parser still hits an error, it will raise it, otherwise it will simply proceed.</p>
+semicolons in the source code, it is possible to omit them.</p>
+<p>But JavaScript is not a semicolon-less language, it in fact needs the 
+semicolons in order to understand the source code. Therefore the JavaScript
+parser <strong>automatically</strong> inserts them whenever it encounters a parse
+error due to a missing semicolon.</p>
+<pre><code>var foo = function() {
+} // parse error, semicolon expected
+test()
+</code></pre>
+<p>Insertion happens, and the parser tries again.</p>
+<pre><code>var foo = function() {
+}; // no error, parser continues
+test()
+</code></pre>
 <p>The automatic insertion of semicolon is considered to be one of <strong>biggest</strong>
-design flaws in the language. It makes the below code work, but  with a 
-completely different result than intended.</p>
-<pre><code>return
-{
-    foo: 1
-}
+design flaws in the language as it <em>can</em> change the behavior of code.</p>
+</section><section><header><h3>How it works</h3></header>
+<p>The code below has no semicolons in it, so it is up to the parser to decide where
+to insert them.</p>
+<pre><code>(function(window, undefined) {
+    function test(options) {
+        log('testing!')
+
+        (options.list || []).forEach(function(i) {
+
+        })
+
+        options.value.test(
+            'long string to pass here',
+            'and another long string to pass'
+        )
+
+        return
+        {
+            foo: function() {}
+        }
+    }
+    window.test = test
+
+})(window)
+
+(function(window) {
+    window.someLibrary = {}
+
+})(window)
 </code></pre>
-<p>After the JavaScript parser fixed it, this will <strong>not</strong> return an object which 
-has a property called <code>foo</code>, it will instead simply return <code>undefined</code>.</p>
-</section><section><header><h3>How the parser "fixes" missing semicolons</h3></header>
-<pre><code>return // Error, semicolon expected. Automatic insertion happens
-{ // Block syntax is handle just fine
+<p>Below is the result of the parser's "guessing" game.</p>
+<pre><code>(function(window, undefined) {
+    function test(options) {
 
-    // foo is not interpreted as property name, but as a label
-    foo: 1 // JavaScript supports single expression evaluation
-           // So 1 evaluates to 1 and no error is being raised
+        // Not inserted, lines got merged
+        log('testing!')(options.list || []).forEach(function(i) {
 
-} // Automatic semicolon insertion
+        }); // &lt;- inserted
+
+        options.value.test(
+            'long string to pass here',
+            'and another long string to pass'
+        ); // &lt;- inserted
+
+        return; &lt;- inserted, breaks the return statement
+        { 
+            foo: function() {} 
+        }; // &lt;- inserted
+    }
+    window.test = test; // &lt;- inserted
+
+// The lines got merged again
+})(window)(function(window) {
+    window.someLibrary = {}; //&lt;- inserted
+
+})(window); //&lt;- inserted
 </code></pre>
-<p>After the parser has done its "magic", the resulting code has completely
-different behavior.</p>
-<pre><code>return; // implicitly returns undefined
+<p>The parser drastically changed the behavior of the code above, in certain cases
+it does the <strong>wrong</strong> thing.</p>
+</section><section><header><h3>Leading parenthesis</h3></header>
+<p>In case of a leading parenthesis, the parse will <strong>not</strong> insert a semicolon.</p>
+<pre><code>log('testing!')
+(options.list || []).forEach(function(i) {})
+</code></pre>
+<p>This code gets transformed into one line.</p>
+<pre><code>log('testing!')(options.list || []).forEach(function(i) {})
+</code></pre>
+<p>Chances are <strong>very</strong> high that <code>log</code> does <strong>not</strong> return a function, therefore the
+above will yield <code>TypeError</code> saying that <code>undefined is not a function</code>.</p>
+</section><section><header><h3>Broken <code>return</code> statements</h3></header>
+<p>The JavaScript parse also does not correctly handle return statements which are
+followed by a new line. </p>
+<pre><code>return;
+{ // gets interpreted as a block
 
-// dead code
-{
-    foo: 1
+    // a label and a single expression statement
+    foo: function() {} 
 };
 </code></pre>
-</section><section><header><h3>Missing semicolons and evaluation</h3></header>
-<pre><code>var foo = function() {
-} // missing semicolon after assignment
-
-(function() {
-    // do something in it's own scope
-})();
-</code></pre>
-<p>Again, the above code will behave <strong>drastically different</strong>.</p>
-<pre><code>var foo = function(){
-
-}( // The parser does NOT insert a semicolon here
-    // call the anonymous function and pass another function in
-    function() {
-    }
-)() // now call the result of the previous call
-</code></pre>
+<p>Instead it produces the above, that is simply a silent error</p>
 </section><section><header><h3>In conclusion</h3></header>
-<p>Semicolons should <strong>never</strong> be omitted, it is also recommended to keep braces 
-on the same line with their associated statements and never omit them for one 
-line <code>if</code> / <code>else</code> statements. This will not only improve the consistency of the
-code, it will also prevent the JavaScript parser from applying too much "magic"
-to the code.</p></section></article>
+<p>It is highly recommended to <strong>never</strong> omit semicolons, it is also advocated to 
+keep braces on the same line with their corresponding statements and to never omit 
+them for one single-line <code>if</code> / <code>else</code> statements. Both of these measures will 
+not only improve the consistency of the code, they will also prevent the 
+JavaScript parser from changing its behavior.</p></section></article>
             <footer>
                 <p>                             
                     Copyright &copy; 2011.
