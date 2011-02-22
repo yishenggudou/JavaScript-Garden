@@ -315,7 +315,7 @@ var foo = function() {};
 <p>Due to the fact that <code>var</code> is a <em>statement</em>, which - just like the function 
 declaration - creates the variable <code>foo</code> before the actual execution of the code
 starts, <code>foo</code> is already defined when the script gets executed.</p>
-<p>Since assignments only happens at runtime, the value of <code>Foo</code> will default
+<p>Since assignments only happens at runtime, the value of <code>foo</code> will default
 to <a href="#undefined">undefined</a> before the corresponding code is executed.</p>
 </section><section><header><h3>Named function expression</h3></header>
 <p>Another special case is the assignment of named functions.</p>
@@ -349,51 +349,15 @@ assign the value of <code>2</code> to the <em>local</em> variable <code>bar</cod
 <p>Also, while the statements inside the <code>if</code> block never get executed, the variable
 <code>foo</code> still gets created and defaults to the value of <code>undefined</code>; again, this
 is due to the lack of block scoping.</p>
-</section><section><header><h3>Hoisting</h3></header>
-<p>JavaScript hoists declarations, the following shows both the source and the code
-when it was <strong>parsed</strong> but <strong>not</strong> yet executed.</p>
-<pre><code>var string = 'Hello World';
+</section><section><header><h3>Order of parsing</h3></header>
+<p>All <code>var</code> statements get parsed <strong>before</strong> <code>function</code> declarations; hence,
+subsequent statements will override the previous ones.</p>
+<pre><code>function foo() {}
+var foo;
 
-test(); // works
-function test(foo) {
-    if (foo) {
-        bar = 2;
-
-    } else {
-        var bar = 1;
-    }
-    return bar;
-}
-
-fn(); // TypeError: fn is undefined
-var fn = function() {
-    return bar;
-};
-</code></pre>
-<p>The <code>var</code> statements get moved infront of any function declarations, and the 
-original <code>var</code> statements get transformed into assignments.</p>
-<pre><code>// hoisted code
-var string, fn;
-function test(foo) {
-    var bar;
-    if (foo) {
-        bar = 2;
-
-    } else {
-        bar = 1;
-    }
-    return bar;
-}
-
-// code that needs to be executed
-string = 'Hello World';
-
-test(); // works
-
-fn(); // TypeError: fn is undefined
-fn = function() {
-    return bar;
-};
+foo; // [function foo]
+var foo = 2;
+foo; // 2
 </code></pre></section></article>
 
 <article><section><header><h2 id="this">How <code>this</code> works <a href="#intro">#top</a></h2></header>
@@ -696,7 +660,7 @@ var foo = '42'
 </code></pre>
 <p>The above two scripts do <strong>not</strong> have the same effect. Script A defines a 
 variable called <code>foo</code> in the <em>global</em> scope and script B defines a <code>foo</code> in the
-<em>local</em> scope.</p>
+<em>current</em> scope.</p>
 <p>Again, that is <strong>not</strong> at all the same effect, not using <code>var</code> can have major 
 implications.</p>
 <pre><code>// global scope
@@ -1096,8 +1060,6 @@ you can see this is anything but consistent.</p>
 <p><strong>From the Specification:</strong> The value of <code>[[Class]]</code> can be one of the
 following strings. <code>Arguments</code>, <code>Array</code>, <code>Boolean</code>, <code>Date</code>, <code>Error</code>, 
 <code>Function</code>, <code>JSON</code>, <code>Math</code>, <code>Number</code>, <code>Object</code>, <code>RegExp</code>, <code>String</code>.</p>
-<p><strong>ES5 Note:</strong> The <code>[[Class]]</code> value of <code>null</code> and <code>undefined</code> in ECMAScript 5
-was changed from <code>Object</code> to <code>Null</code> and <code>Undefined</code>.</p>
 </aside>
 <p>In order to retrieve the value of <code>[[Class]]</code> one can has to make use of the
 <code>toString</code> method of <code>Object</code>.</p>
@@ -1114,6 +1076,10 @@ is('String', new String('test')); // true
 </code></pre>
 <p>In the above example, <code>Object.prototype.toString</code> gets called with the value of
 <a href="#this">this</a> being set to the object whose <code>[[Class]]</code> value should be retrieved.</p>
+<aside>
+<p><strong>ES5 Note:</strong> For convenience the return value of <code>Object.prototype.toString</code> 
+for both null<code>and</code>undefined<code>was **changed** from</code>Object<code>to</code>Null<code>and</code>Undefined` in ECMAScript 5.</p>
+</aside>
 </section><section><header><h3>Testing for undefined variables</h3></header>
 <pre><code>typeof foo !== 'undefined'
 </code></pre>
@@ -1178,8 +1144,9 @@ isNaN(null) == false; // null converts to 0
 10 == '-10';
 </code></pre>
 <aside>
-<p><strong>ES5 Note:</strong> Number literals that start with a <code>0</code> are interpreted as octal (Base
-8). Support for these has been <strong>removed</strong> in ECMAScript 5 strict mode.</p>
+<p><strong>ES5 Note:</strong> Number literals that start with a <code>0</code> are interpreted as octal 
+(Base 8). Octal support for these has been <strong>removed</strong> in ECMAScript 5 strict 
+mode.</p>
 </aside>
 <p>In order to avoid that the use of the <a href="#equality">strict equal operator</a> is
 recommended.</p>
@@ -1226,7 +1193,7 @@ being <code>undefined</code>.</p>
 this variable is also called <code>undefined</code>. But this variable is <strong>not</strong> a constant,
 meaning that it can be easily overwritten which then leads to abstruse bugs. </p>
 <aside>
-<p><strong>ES5 Note:</strong> <code>undefined</code> in ECMAScript 5 is <strong>no longer</strong> writable in strict
+<p><strong>ES5 Note:</strong> <code>undefined</code> in ECMAScript 5 is <strong>no longer</strong> <em>writable</em> in strict
 mode, but its name can still be shadowed by for example a function with the name 
 <code>undefined</code>.</p>
 </aside>
