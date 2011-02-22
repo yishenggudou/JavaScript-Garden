@@ -344,20 +344,56 @@ if (false) {
 }
 </code></pre>
 <p>Since there is <strong>no</strong> <a href="#scopes">block scope</a> in JavaScript, the above will
-<strong>not</strong> assign the value <code>2</code> to the <em>global</em> variable <code>bar</code>. It will rather 
+<strong>not</strong> assign the value <code>2</code> to the <em>global</em> variable <code>bar</code>. Instead, it will
 assign the value of <code>2</code> to the <em>local</em> variable <code>bar</code> of <code>test</code>. </p>
 <p>Also, while the statements inside the <code>if</code> block never get executed, the variable
 <code>foo</code> still gets created and defaults to the value of <code>undefined</code>; again, this
 is due to the lack of block scoping.</p>
-</section><section><header><h3>Order of parsing</h3></header>
-<p>All <code>var</code> statements get parsed <strong>before</strong> <code>function</code> declarations; hence,
-subsequent statements will override the previous ones.</p>
-<pre><code>function foo() {}
-var foo;
+</section><section><header><h3>Hoisting</h3></header>
+<p>JavaScript hoists declarations, the following shows both the source and the code
+when it was <strong>parsed</strong> but <strong>not</strong> yet executed.</p>
+<pre><code>var string = 'Hello World';
 
-foo; // [function foo]
-var foo = 2;
-foo; // 2
+test(); // works
+function test(foo) {
+    if (foo) {
+        bar = 2;
+
+    } else {
+        var bar = 1;
+    }
+    return bar;
+}
+
+fn(); // TypeError: fn is undefined
+var fn = function() {
+    return bar;
+};
+</code></pre>
+<p>The <code>var</code> statements get moved infront of any function declarations, and the 
+original <code>var</code> statements get transformed into assignments.</p>
+<pre><code>// hoisted code
+var string, fn;
+function test(foo) {
+    var bar;
+    if (foo) {
+        bar = 2;
+
+    } else {
+        bar = 1;
+    }
+    return bar;
+}
+
+// code that needs to be executed
+string = 'Hello World';
+
+test(); // works
+
+fn(); // TypeError: fn is undefined
+fn = function() {
+    return bar;
+};
 </code></pre></section></article>
 
 <article><section><header><h2 id="this">How <code>this</code> works <a href="#intro">#top</a></h2></header>
@@ -534,7 +570,7 @@ above.</p>
 <p>Every function scope in JavaScript can access the special variable <code>arguments</code>.
 This variable holds a list of all the arguments that were passed to the function.</p>
 <aside>
-<p><strong>Note:</strong> In case <code>arguments</code> has already been defined inside the functions
+<p><strong>Note:</strong> In case <code>arguments</code> has already been defined inside the function's
 scope either via a <code>var</code> statement or being the name of a formal parameter,
 the <code>arguments</code> object will not be created.</p>
 </aside>
@@ -550,11 +586,37 @@ array like methods on it.</p>
 <code>arguments</code> object.</p>
 <pre><code>Array.prototype.slice.call(arguments);
 </code></pre>
-<p>This conversion is <strong>slow</strong>, it is not recommended to use it in performance 
+<p>This conversion is <strong>slow</strong>, it is <strong>not</strong> recommended to use it in performance 
 critical sections of code.</p>
+</section><section><header><h3>Passing arguments</h3></header>
+<p>The following is the recommended way of passing arguments from one function to
+another.</p>
+<pre><code>function foo() {
+    bar.apply(null, arguments);
+}
+function bar(a, b, c) {
+    // do stuff here
+}
+</code></pre>
+<p>Another trick is to use both <code>call</code> and <code>apply</code> together to create fast, unbound
+wrappers.</p>
+<pre><code>function Foo() {}
+
+Foo.prototype.method = function(a, b, c) {
+    console.log(this, a, b, c);
+};
+
+// Create an unbound version of "method" 
+// It takes the parameters: this, arg1, arg2...argN
+Foo.method = function() {
+
+    // Result: Foo.prototype.method.call(this, arg1, arg2... argN)
+    Function.call.apply(Foo.prototype.method, arguments);
+};
+</code></pre>
 </section><section><header><h3>Modification "magic"</h3></header>
 <p>The <code>arguments</code> object creates getter and setter functions for both its properties
-as well as the functions formal parameters.</p>
+as well as the function's formal parameters.</p>
 <p>As a result, changing the value of a formal parameter will also change the value
 corresponding formal parameter, and the other way around.</p>
 <pre><code>function foo(a, b, c) {
@@ -1034,6 +1096,8 @@ you can see this is anything but consistent.</p>
 <p><strong>From the Specification:</strong> The value of <code>[[Class]]</code> can be one of the
 following strings. <code>Arguments</code>, <code>Array</code>, <code>Boolean</code>, <code>Date</code>, <code>Error</code>, 
 <code>Function</code>, <code>JSON</code>, <code>Math</code>, <code>Number</code>, <code>Object</code>, <code>RegExp</code>, <code>String</code>.</p>
+<p><strong>ES5 Note:</strong> The <code>[[Class]]</code> value of <code>null</code> and <code>undefined</code> in ECMAScript 5
+was changed from <code>Object</code> to <code>Null</code> and <code>Undefined</code>.</p>
 </aside>
 <p>In order to retrieve the value of <code>[[Class]]</code> one can has to make use of the
 <code>toString</code> method of <code>Object</code>.</p>
@@ -1114,8 +1178,8 @@ isNaN(null) == false; // null converts to 0
 10 == '-10';
 </code></pre>
 <aside>
-<p><strong>Note:</strong> Number literals that start with a <code>0</code> are interpreted as octal (Base
-8).</p>
+<p><strong>ES5 Note:</strong> Number literals that start with a <code>0</code> are interpreted as octal (Base
+8). Support for these has been <strong>removed</strong> in ECMAScript 5 strict mode.</p>
 </aside>
 <p>In order to avoid that the use of the <a href="#equality">strict equal operator</a> is
 recommended.</p>
@@ -1161,7 +1225,12 @@ being <code>undefined</code>.</p>
 <p>The language also defines a global variable that has the value of <code>undefined</code>,
 this variable is also called <code>undefined</code>. But this variable is <strong>not</strong> a constant,
 meaning that it can be easily overwritten which then leads to abstruse bugs. </p>
-<p>The value <code>undefined</code> is returned in the following cases:</p>
+<aside>
+<p><strong>ES5 Note:</strong> <code>undefined</code> in ECMAScript 5 is <strong>no longer</strong> writable in strict
+mode, but its name can still be shadowed by for example a function with the name 
+<code>undefined</code>.</p>
+</aside>
+<p>Some examples for when the value <code>undefined</code> is returned:</p>
 <ul>
 <li>Accessing the (unmodified) global variable <code>undefined</code></li>
 <li>Implicit returns of functions due to missing <code>return</code> statements</li>
@@ -1185,6 +1254,18 @@ common technique used is to add an additional parameter to the encapsulation
 
 })('Hello World', 42);
 </code></pre>
+<p>Another way to achieve the same effect would be to use a declaration inside the 
+wrapper.</p>
+<pre><code>var undefined = 123;
+(function(something, foo) {
+    var undefined;
+    ...
+
+})('Hello World', 42);
+</code></pre>
+<p>The only difference being here, that this version results in 4 more bytes being
+used in case it is minified and there is no other <code>var</code> statement inside the
+anonymous wrapper.</p>
 </section><section><header><h3>Uses of <code>null</code></h3></header>
 <p>While <code>undefined</code> in the context of the JavaScript language is mostly used in
 the sense of a traditional null, the actual <code>null</code> (both a literal and a type)
@@ -1421,7 +1502,9 @@ to insert them.</p>
         ); // &lt;- inserted
 
         return; &lt;- inserted, breaks the return statement
-        { 
+        { // treated as a block
+
+            // a label and a single expression statement
             foo: function() {} 
         }; // &lt;- inserted
     }
@@ -1433,6 +1516,11 @@ to insert them.</p>
 
 })(window); //&lt;- inserted
 </code></pre>
+<aside>
+<p><strong>Note:</strong> The JavaScript parser does not "correctly" handle return statements 
+which are followed by a new line, while this is not neccessarily the fault of 
+the automatic semicolon insertion, it can still be an unwanted side-effect. </p>
+</aside>
 <p>The parser drastically changed the behavior of the code above, in certain cases
 it does the <strong>wrong</strong> thing.</p>
 </section><section><header><h3>Leading parenthesis</h3></header>
@@ -1445,17 +1533,6 @@ it does the <strong>wrong</strong> thing.</p>
 </code></pre>
 <p>Chances are <strong>very</strong> high that <code>log</code> does <strong>not</strong> return a function, therefore the
 above will yield <code>TypeError</code> saying that <code>undefined is not a function</code>.</p>
-</section><section><header><h3>Broken <code>return</code> statements</h3></header>
-<p>The JavaScript parse also does not correctly handle return statements which are
-followed by a new line. </p>
-<pre><code>return;
-{ // gets interpreted as a block
-
-    // a label and a single expression statement
-    foo: function() {} 
-};
-</code></pre>
-<p>Instead it produces the above, that is simply a silent error</p>
 </section><section><header><h3>In conclusion</h3></header>
 <p>It is highly recommended to <strong>never</strong> omit semicolons, it is also advocated to 
 keep braces on the same line with their corresponding statements and to never omit 
