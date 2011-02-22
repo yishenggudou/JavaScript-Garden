@@ -538,7 +538,7 @@ This variable holds a list of all the arguments that were passed to the function
 scope either via a <code>var</code> statement or being the name of a formal parameter,
 the <code>arguments</code> object will not be created.</p>
 </aside>
-<p>The <code>arguments</code> variable is <strong>not</strong> an <code>Array</code>. While it has some of the 
+<p>The <code>arguments</code> object is <strong>not</strong> an <code>Array</code>. While it has some of the 
 semantics of an array - namely the <code>length</code> property - it does not inherit from 
 <code>Array.prototype</code> and is in fact an <code>Object</code>.</p>
 <p>Due to this, it is not possible to use standard array methods like <code>push</code>,
@@ -582,7 +582,7 @@ Foo.method = function() {
 <p>The <code>arguments</code> object creates getter and setter functions for both its properties
 as well as the function's formal parameters.</p>
 <p>As a result, changing the value of a formal parameter will also change the value
-corresponding formal parameter, and the other way around.</p>
+of the corresponding property of the arguments object, and the other way around.</p>
 <pre><code>function foo(a, b, c) {
     arguments[0] = 2;
     a; // 2
@@ -597,11 +597,12 @@ corresponding formal parameter, and the other way around.</p>
 foo(1, 2, 3);
 </code></pre>
 </section><section><header><h3>Performance myths and truths</h3></header>
-<p>The <code>arguments</code> is, except for the two cases named at the start of this section,
-always created. It doesn't matter whether it is used or not. Both getters and
-setters are <strong>always</strong> created; thus, using it has nearly no performance impact
-at all, especially not in real world code where there is more than an access to
-the arguments object properties.</p>
+<p>The <code>arguments</code> object is always created the only two exceptions being the cases 
+where it is declared as a name inside of a function or one of its formal 
+parameters. It does not matter whether it is used or not.</p>
+<p>Both getters and setters are <strong>always</strong> created; thus, using it has nearly 
+no performance impact at all, especially not in real world code where there is 
+more than an access to the arguments object properties.</p>
 <aside>
 <p><strong>ES5 Note:</strong> These getters and setters are not created in strict mode.</p>
 </aside>
