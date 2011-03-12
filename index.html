@@ -33,7 +33,7 @@
 <li><a href="#instanceof">The <code>instanceof</code> operator</a></li>
 <li><a href="#casting">Type casting</a></li>
 <li><a href="#undefined"><code>undefined</code> and <code>null</code></a></li>
-<li><a href="#eval">The evil <code>eval</code></a></li>
+<li><a href="#eval">Reasons against <code>eval</code></a></li>
 <li><a href="#timeouts"><code>setTimeout</code> and <code>setInterval</code></a></li>
 <li><a href="#semicolon">Automatic semicolon insertion</a></li>
 </ul></section>
@@ -188,15 +188,16 @@ test [instance of Bar]
     Bar.prototype [instance of Foo] 
         { foo: 'Hello World' }
         Foo.prototype
-            {method: ...};
+            { method: ... }
             Object.prototype
-                {toString: ... /* etc. */};
+                { toString: ... /* etc. */ }
 </code></pre>
 <p>In the above, the object <code>test</code> will inherit from both <code>Bar.prototype</code> and
 <code>Foo.prototype</code>; hence, it will have access to the function <code>method</code> that was 
-defined on <code>Foo</code>. But it will not have access to the property <code>value</code> of a 
-<code>Foo</code> instance, since that property gets defined in the <a href="#constructor">constructor</a>
-of <code>Foo</code>. But this constructor has to be called explicitly.</p>
+defined on <code>Foo</code>. It will also have access to the property <code>value</code> of the
+<strong>one</strong> <code>Foo</code> instance that is its prototype. It is important to note that <code>new
+Bar()</code> does <strong>not</strong> create a new <code>Foo</code> instance, but reuses the one assigned to 
+its prototype; thus, all <code>Bar</code> instances will share the <strong>same</strong> <code>value</code> property.</p>
 <aside>
 <p><strong>Note:</strong> Do <strong>not</strong> use <code>Bar.prototype = Foo</code>, since it will not point to 
 the prototype of <code>Foo</code> but rather to the function object <code>Foo</code>. So the 
@@ -235,8 +236,8 @@ the features of newer JavaScript engines; for example,
 <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/forEach"><code>Array.forEach</code></a>.</p>
 </section><section><header><h3>In conclusion</h3></header>
 <p>It is a <strong>must</strong> to understand the prototypical inheritance model completely 
-before writing complex code which makes use of it. Also, watching the length of 
-the prototype chains and breaking them up if necessary can avoid possible 
+before writing complex code which makes use of it. Also, watch the length of 
+the prototype chains and break them up if necessary to avoid possible 
 performance issues. Further, the native prototypes should <strong>never</strong> be extended 
 unless it is for the sake of compatibility with newer JavaScript features.</p></section></article>
 
@@ -545,7 +546,7 @@ Foo.method = function() {
     Function.call.apply(Foo.prototype.method, arguments);
 };
 </code></pre>
-</section><section><header><h3>Modification "magic"</h3></header>
+</section><section><header><h3>Formal parameters and arguments indexes</h3></header>
 <p>The <code>arguments</code> object creates <em>getter</em> and <em>setter</em> functions for both its 
 properties as well as the function's formal parameters.</p>
 <p>As a result, changing the value of a formal parameter will also change the value
@@ -1021,14 +1022,21 @@ when creating new arrays.</p>
 new Array(1, 2, 3); // Result: [1, 2, 3]
 
 [3]; // Result: [3]
-new Array(3); // Result: [undefined, undefined, undefined] 
+new Array(3); // Result: []
 new Array('3') // Result: ['3']
 </code></pre>
 <p>In cases when there is only one argument passed to the <code>Array</code> constructor,
-and that argument is a <code>Number</code>, the constructor will use that number as the 
-<em>length</em> of the new array to be created.</p>
-<p>This behavior only comes in handy in a few cases, like repeating a string, in
-which it avoids the use of a <code>for loop</code> code.</p>
+and that argument is a <code>Number</code>, the constructor will return a new <em>sparse</em> 
+array with the <code>length</code> property set to the value of the argument. It should be 
+noted that <strong>only</strong> the <code>length</code> property of the new array will be set this way, 
+the actual indexes of the array will not be initialized. </p>
+<pre><code>var arr = new Array(3);
+arr[1]; // undefined
+1 in arr; // false, the index was not set
+</code></pre>
+<p>The behavior of being able to set the length of the array upfront only comes in 
+handy in a few cases, like repeating a string, in which it avoids the use of a 
+<code>for loop</code> code.</p>
 <pre><code>new Array(count + 1).join(stringToRepeat);
 </code></pre>
 </section><section><header><h3>In conclusion</h3></header>
@@ -1302,7 +1310,7 @@ is more or less just another data type.</p>
 prototype chain by setting <code>Foo.prototype = null</code>), but in almost all cases it
 can be replaced by <code>undefined</code>.</p></section></article>
 
-<article><section><header><h2 id="eval">The evil <code>eval</code> <a href="#intro">#top</a></h2></header>
+<article><section><header><h2 id="eval">Reasons against <code>eval</code> <a href="#intro">#top</a></h2></header>
 <p>The <code>eval</code> function will execute a string of JavaScript code in the local scope.</p>
 <pre><code>var foo = 1;
 function test() {
@@ -1328,18 +1336,18 @@ foo; // 3
 <p>The use of <code>eval</code> should be avoided at <strong>all costs</strong>. 99.9% of its "uses" can be
 achieved <strong>without</strong> it.</p>
 </section><section><header><h3><code>eval</code> in disguise</h3></header>
-<p>The <a href="#timeouts">timeout functions</a> <code>setTimeout</code> and <code>setInterval</code> can both take a string as
-their first argument. This string will <strong>always</strong> get executed in the global 
-scope since <code>eval</code> is not being called directly in that case.</p>
+<p>The <a href="#timeouts">timeout functions</a> <code>setTimeout</code> and <code>setInterval</code> can both take a
+string as their first argument. This string will <strong>always</strong> get executed in the 
+global scope since <code>eval</code> is not being called directly in that case.</p>
 </section><section><header><h3>Security issues</h3></header>
 <p><code>eval</code> also is a security problem as it executes <strong>any</strong> code given to it,
 it should <strong>never</strong> be used with strings of unknown or untrusted origins.</p>
 </section><section><header><h3>In conclusion</h3></header>
-<p><code>eval</code> is <strong>evil</strong>. Never should it be used, any code that makes use of it is to
-be questioned in both its workings and security. In case something requires <code>eval</code>
-in order to work, its design is to be questioned and should <strong>not</strong> be used in 
-the first place, a <em>better design</em> should be used, that does not require the use 
-of <code>eval</code>.</p></section></article>
+<p><code>eval</code> should never be used, any code that makes use of it is to be questioned in
+its workings, performance and security. In case something requires <code>eval</code> in 
+order to work, its design is to be questioned and should <strong>not</strong> be used in the 
+first place, a <em>better design</em> should be used, that does not require the use of 
+<code>eval</code>.</p></section></article>
 
 <article><section><header><h2 id="timeouts"><code>setTimeout</code> and <code>setInterval</code> <a href="#intro">#top</a></h2></header>
 <p>Since JavaScript is asynchronous, it is possible to schedule the execution of a 
@@ -1424,9 +1432,15 @@ for(var i = 1; i &lt; 1000; i++) {
 <p>There might still be timeouts that are unaffected by this arbitrary number;
 therefore, is is instead recommended to keep track of all the timeout IDs, so
 they can be cleared specifically.</p>
-</section><section><header><h3>Hidden <code>eval</code> magic</h3></header>
+</section><section><header><h3>Hidden use of <code>eval</code></h3></header>
 <p><code>setTimeout</code> and <code>setInterval</code> can also take a string as their first parameter.
 This feature should <strong>never</strong> be used, since it internally makes use of <code>eval</code>.</p>
+<aside>
+<p><strong>Note:</strong> Since the timeout functions are <strong>not</strong> specified by the ECMAScript
+standard, the exact workings when a string is passed to them might differ in
+various JavaScript implementations. As a fact, Microsoft's JScript makes use of
+the <code>Function</code> constructor in place of <code>eval</code>.</p>
+</aside>
 <pre><code>function foo() {
     // will get called
 }
@@ -1529,7 +1543,7 @@ to insert them.</p>
             'and another long string to pass'
         ); // &lt;- inserted
 
-        return; &lt;- inserted, breaks the return statement
+        return; // &lt;- inserted, breaks the return statement
         { // treated as a block
 
             // a label and a single expression statement
@@ -1540,7 +1554,7 @@ to insert them.</p>
 
 // The lines got merged again
 })(window)(function(window) {
-    window.someLibrary = {}; //&lt;- inserted
+    window.someLibrary = {}; // &lt;- inserted
 
 })(window); //&lt;- inserted
 </code></pre>
