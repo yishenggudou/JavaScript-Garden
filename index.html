@@ -36,7 +36,7 @@
 <li><a href="#eval">Reasons against <code>eval</code></a></li>
 <li><a href="#timeouts"><code>setTimeout</code> and <code>setInterval</code></a></li>
 <li><a href="#semicolon">Automatic semicolon insertion</a></li>
-</ul></section>
+</ul>
             </nav>
 
             <header>
@@ -115,7 +115,7 @@ the square bracket notation allows for dynamic setting of properties, as well as
 the use of property names that would otherwise lead to a syntax error.</p>
 </section><section><header><h3>Deleting properties</h3></header>
 <p>The only way to actually remove a property from an object is to use the <code>delete</code>
-operator; setting the property to <code>undefined</code> or <code>null</code> does <strong>only</strong> remove the
+operator; setting the property to <code>undefined</code> or <code>null</code> <strong>only</strong> remove the
 value associated with the property, but not the key.</p>
 <pre><code>var obj = {
     bar: 1,
@@ -132,7 +132,7 @@ for(var i in obj) {
     }
 }
 </code></pre>
-<p>The above outputs both <code>bar undefined</code> and <code>foo null</code> - only <code>baz</code> got actually
+<p>The above outputs both <code>bar undefined</code> and <code>foo null</code> - only <code>baz</code> was
 removed and is therefore missing from the output.</p>
 </section><section><header><h3>Notation of keys</h3></header>
 <pre><code>var test = {
@@ -143,9 +143,9 @@ removed and is therefore missing from the output.</p>
 <p>Object properties can be both notated as plain characters and as strings. Due to
 another mis-design in JavaScript's parser, the above will throw 
 a <code>SyntaxError</code> prior to ECMAScript 5.</p>
-<p>This error arises from the fact that <code>delete</code> is a <em>keyword</em> of the language;
-therefore, it must be notated as a <em>string literal</em> in order to ensure working
-code under older JavaScript engines.</p></section></article>
+<p>This error arises from the fact that <code>delete</code> is a <em>keyword</em>; therefore, it must be 
+notated as a <em>string literal</em> to ensure that it will be correctly interpreted by
+older JavaScript engines.</p></section></article>
 
 <article><section><header><h2 id="prototype">The prototype <a href="#intro">#top</a></h2></header>
 <p>JavaScript does not feature a classical inheritance model, instead it uses a 
@@ -230,7 +230,7 @@ access non-existent properties will always traverse the full prototype chain. </
 other built in prototypes.</p>
 <p>This technique is called <a href="http://en.wikipedia.org/wiki/Monkey_patch">monkey patching</a> and breaks <em>encapsulation</em>. While 
 used by widely spread frameworks such as <a href="http://prototypejs.org/">Prototype</a>, there is still no good 
-reason for cluttering built in types with additional <em>non-standard</em> functionality.</p>
+reason for cluttering built-in types with additional <em>non-standard</em> functionality.</p>
 <p>The <strong>only</strong> good reason for extending a built-in prototype is to backport 
 the features of newer JavaScript engines; for example, 
 <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/forEach"><code>Array.forEach</code></a>.</p>
@@ -1244,7 +1244,7 @@ more type coercion.</p>
 <p>By using the <strong>not</strong> operator twice, a value can be converted a boolean.</p>
 <pre><code>!!'foo';   // true
 !!'';      // false
-!!'0';     // false
+!!'0';     // true
 !!'1';     // true
 !!'-1'     // true
 !!{};      // true
