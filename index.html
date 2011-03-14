@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en"><head><title>JavaScript Garden</title><meta charset="utf-8"><meta name="description" content="A Guide to JavaScript's Quirks and Flaws."><link rel="stylesheet" href="style/garden.css" media="all"><link rel="stylesheet" href="style/print.css" media="print"><!--[if lt IE 9]>
-<script src="/javascript/html5.js"></script>
+<script src="javascript/html5.js"></script>
 <![endif]-->
 </head><body><!-- Navigation--><nav id="nav_main"><div><ul><li class="active"><a href="/JavaScript-Garden/" title="JavaScript Garden in English">en</a></li></ul></div><ul><li class="nav_intro"><h1><a href="#intro">Intro</a></h1><ul><li><a href="#intro.authors">The Authors</a></li><li><a href="#intro.contributors">Contributors</a></li><li><a href="#intro.license">License</a></li></ul></li><li class="nav_object"><h1><a href="#object">Objects</a></h1><ul><li><a href="#object.general">Object Usage and Properties</a></li><li><a href="#object.prototype">The Prototype</a></li><li><a href="#object.hasownproperty"><code>hasOwnProperty</code></a></li><li><a href="#object.forinloop">The <code>for in</code> Loop</a></li></ul></li><li class="nav_function"><h1><a href="#function">Functions</a></h1><ul><li><a href="#function.general">Function Declarations and Expressions</a></li><li><a href="#function.this">How <code>this</code> Works</a></li><li><a href="#function.closures">Closures and References</a></li><li><a href="#function.arguments">The <code>arguments</code> Object</a></li><li><a href="#function.constructors">Constructors</a></li><li><a href="#function.scopes">Scopes and Namespaces</a></li></ul></li><li class="nav_array"><h1><a href="#array">Arrays</a></h1><ul><li><a href="#array.general">Array Iteration and Properties</a></li><li><a href="#array.constructor">The <code>Array</code> Constructor</a></li></ul></li><li class="nav_types"><h1><a href="#types">Types</a></h1><ul><li><a href="#types.equality">Equality and comparisons</a></li><li><a href="#types.typeof">The <code>typeof</code> operator</a></li><li><a href="#types.instanceof">The <code>instanceof</code> operator</a></li><li><a href="#types.casting">Type casting</a></li></ul></li><li class="nav_core"><h1><a href="#core">Core</a></h1><ul><li><a href="#core.eval">Why not to use <code>eval</code></a></li><li><a href="#core.undefined"><code>undefined</code> and <code>null</code></a></li><li><a href="#core.semicolon">Automatic semicolon insertion</a></li></ul></li><li class="nav_other"><h1><a href="#other">Other</a></h1><ul><li><a href="#other.timeouts"><code>setTimeout</code> and <code>setInterval</code></a></li></ul></li></ul></nav><!-- Mobile navigation--><nav id="nav_mobile"><a id="nav_prev_section" href="#">prev section<span class="nav_section_name">section name</span></a><a id="nav_next_section" href="#">next section<span class="nav_section_name">section name</span></a></nav><!-- Sections--><section id="intro"><!-- Introduction--><header id="intro.intro"><h1>Intro</h1><div><p><strong>JavaScript Garden</strong> is a growing collection of documentation about the most 
 quirky parts of the JavaScript programming language. It gives advice to 
@@ -118,15 +118,15 @@ a <code>SyntaxError</code> prior to ECMAScript 5.</p>
 <p>This error arises from the fact that <code>delete</code> is a <em>keyword</em>; therefore, it must be 
 notated as a <em>string literal</em> to ensure that it will be correctly interpreted by
 older JavaScript engines.</p></div></article><article id="object.prototype"><h2>The Prototype</h2><div><p>JavaScript does not feature a classical inheritance model, instead it uses a 
-<em>prototypical</em> one. </p>
+<em>prototypal</em> one. </p>
 
 <p>While this is often considered to be one of JavaScript&#39;s weaknesses, the 
-prototypical inheritance model is in fact more powerful than the classic model. 
+prototypal inheritance model is in fact more powerful than the classic model. 
 It is for example fairly trivial to build a classic model on top of it, while the
 other way around is a far more difficult task.</p>
 
 <p>Due to the fact that JavaScript is basically the only widely used language that
-features prototypical inheritance, it takes some time to adjust to the 
+features prototypal inheritance, it takes some time to adjust to the 
 differences between the two models. </p>
 
 <p>The first major difference is that inheritance in JavaScript is done by using so
@@ -227,7 +227,7 @@ the features of newer JavaScript engines; for example,
 
 </div><div><h3>In conclusion</h3>
 
-<p>It is a <strong>must</strong> to understand the prototypical inheritance model completely 
+<p>It is a <strong>must</strong> to understand the prototypal inheritance model completely 
 before writing complex code which makes use of it. Also, watch the length of 
 the prototype chains and break them up if necessary to avoid possible 
 performance issues. Further, the native prototypes should <strong>never</strong> be extended 
@@ -489,7 +489,7 @@ test();
 <code>this</code> inside it will no longer refer to <code>someObject</code>.</p>
 
 <p>While the late binding of <code>this</code> might seem like a bad idea at first, it is in 
-fact what makes <a href="#object.prototype">prototypical inheritance</a> work. </p>
+fact what makes <a href="#object.prototype">prototypal inheritance</a> work. </p>
 
 <pre><code>function Foo() {}
 Foo.prototype.method = function() {};
