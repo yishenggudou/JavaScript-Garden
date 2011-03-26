@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><title>JavaScript Garden</title><meta charset="utf-8"><meta name="description" content="A Guide to JavaScript's Quirks and Flaws."><link rel="stylesheet" href="style/garden.css" media="all"><link rel="stylesheet" href="style/print.css" media="print"><!--[if lt IE 9]>
 <script src="javascript/html5.js"></script>
 <![endif]-->
-</head><body><!-- Navigation--><nav id="nav_main"><div><ul><li><a href="/JavaScript-Garden/ru" title="JavaScript Гарден по-русски">ru</a></li><li class="active"><a href="/JavaScript-Garden/" title="JavaScript Garden in English">en</a></li></ul><a id="top" href="#intro" title="Back to top">#top</a><a id="hide_menu" class="tablet">Hide Menu</a></div><ul><li class="nav_intro"><h1><a href="#intro">Intro</a></h1><ul><li><a href="#intro.authors">The Authors</a></li><li><a href="#intro.contributors">Contributors</a></li><li><a href="#intro.license">License</a></li></ul></li><li class="nav_object"><h1><a href="#object">Objects</a></h1><ul><li><a href="#object.general">Object Usage and Properties</a></li><li><a href="#object.prototype">The Prototype</a></li><li><a href="#object.hasownproperty"><code>hasOwnProperty</code></a></li><li><a href="#object.forinloop">The <code>for in</code> Loop</a></li></ul></li><li class="nav_function"><h1><a href="#function">Functions</a></h1><ul><li><a href="#function.general">Function Declarations and Expressions</a></li><li><a href="#function.this">How <code>this</code> Works</a></li><li><a href="#function.closures">Closures and References</a></li><li><a href="#function.arguments">The <code>arguments</code> Object</a></li><li><a href="#function.constructors">Constructors</a></li><li><a href="#function.scopes">Scopes and Namespaces</a></li></ul></li><li class="nav_array"><h1><a href="#array">Arrays</a></h1><ul><li><a href="#array.general">Array Iteration and Properties</a></li><li><a href="#array.constructor">The <code>Array</code> Constructor</a></li></ul></li><li class="nav_types"><h1><a href="#types">Types</a></h1><ul><li><a href="#types.equality">Equality and Comparisons</a></li><li><a href="#types.typeof">The <code>typeof</code> Operator</a></li><li><a href="#types.instanceof">The <code>instanceof</code> Operator</a></li><li><a href="#types.casting">Type Casting</a></li></ul></li><li class="nav_core"><h1><a href="#core">Core</a></h1><ul><li><a href="#core.eval">Why Not to Use <code>eval</code></a></li><li><a href="#core.undefined"><code>undefined</code> and <code>null</code></a></li><li><a href="#core.semicolon">Automatic Semicolon Insertion</a></li></ul></li><li class="nav_other"><h1><a href="#other">Other</a></h1><ul><li><a href="#other.timeouts"><code>setTimeout</code> and <code>setInterval</code></a></li></ul></li></ul></nav><!-- Mobile navigation--><nav id="nav_mobile"><a id="nav_prev_section" href="#">prev section<span class="nav_section_name">section name</span></a><a id="nav_next_section" href="#">next section<span class="nav_section_name">section name</span></a><a id="show_menu">show menu</a></nav><!-- Sections--><section id="intro"><!-- Introduction--><header id="intro.intro"><h1>Intro</h1><div><p><strong>JavaScript Garden</strong> is a growing collection of documentation about the most 
+</head><body><!-- Navigation--><nav id="nav_main"><div><ul><li><a href="/JavaScript-Garden/ru" title="JavaScript Гарден по-русски">ru</a></li><li><a href="/JavaScript-Garden/zh" title="JavaScript Garden 中文翻译">zh</a></li><li class="active"><a href="/JavaScript-Garden/" title="JavaScript Garden in English">en</a></li></ul><a id="top" href="#intro" title="Back to top">#top</a><a id="hide_menu" class="tablet">Hide Menu</a></div><ul><li class="nav_intro"><h1><a href="#intro">Intro</a></h1><ul><li><a href="#intro.authors">The Authors</a></li><li><a href="#intro.contributors">Contributors</a></li><li><a href="#intro.license">License</a></li></ul></li><li class="nav_object"><h1><a href="#object">Objects</a></h1><ul><li><a href="#object.general">Object Usage and Properties</a></li><li><a href="#object.prototype">The Prototype</a></li><li><a href="#object.hasownproperty"><code>hasOwnProperty</code></a></li><li><a href="#object.forinloop">The <code>for in</code> Loop</a></li></ul></li><li class="nav_function"><h1><a href="#function">Functions</a></h1><ul><li><a href="#function.general">Function Declarations and Expressions</a></li><li><a href="#function.this">How <code>this</code> Works</a></li><li><a href="#function.closures">Closures and References</a></li><li><a href="#function.arguments">The <code>arguments</code> Object</a></li><li><a href="#function.constructors">Constructors</a></li><li><a href="#function.scopes">Scopes and Namespaces</a></li></ul></li><li class="nav_array"><h1><a href="#array">Arrays</a></h1><ul><li><a href="#array.general">Array Iteration and Properties</a></li><li><a href="#array.constructor">The <code>Array</code> Constructor</a></li></ul></li><li class="nav_types"><h1><a href="#types">Types</a></h1><ul><li><a href="#types.equality">Equality and Comparisons</a></li><li><a href="#types.typeof">The <code>typeof</code> Operator</a></li><li><a href="#types.instanceof">The <code>instanceof</code> Operator</a></li><li><a href="#types.casting">Type Casting</a></li></ul></li><li class="nav_core"><h1><a href="#core">Core</a></h1><ul><li><a href="#core.eval">Why Not to Use <code>eval</code></a></li><li><a href="#core.undefined"><code>undefined</code> and <code>null</code></a></li><li><a href="#core.semicolon">Automatic Semicolon Insertion</a></li></ul></li><li class="nav_other"><h1><a href="#other">Other</a></h1><ul><li><a href="#other.timeouts"><code>setTimeout</code> and <code>setInterval</code></a></li></ul></li></ul></nav><!-- Mobile navigation--><nav id="nav_mobile"><a id="nav_prev_section" href="#">prev section<span class="nav_section_name">section name</span></a><a id="nav_next_section" href="#">next section<span class="nav_section_name">section name</span></a><a id="show_menu">show menu</a></nav><!-- Sections--><section id="intro"><!-- Introduction--><header id="intro.intro"><h1>Intro</h1><div><p><strong>JavaScript Garden</strong> is a growing collection of documentation about the most 
 quirky parts of the JavaScript programming language. It gives advice to 
 avoid common mistakes, subtle bugs, as well as performance issues and bad 
 practices that non-expert JavaScript programmers may encounter on their 
@@ -10,7 +10,7 @@ endeavours into the depths of the language.</p>
 <p>JavaScript Garden does <strong>not</strong> aim to teach you JavaScript. Former knowledge
 of the language is strongly recommended in order to understand the topics covered
 in this guide. In order to learn the basics of the language, please head over to 
-the excellent <a href="https://developer.mozilla.org/en/JavaScript/Guide">guide</a> on the Mozilla Developer Network.</p></div></header><!-- Articles--><article id="intro.authors"><h2>The Authors</h2><div><p>This guide is the work of two lovely Stack Overflow users, <a href="http://stackoverflow.com/users/170224/ivo-wetzel">Ivo Wetzel</a>
+the excellent <a href="https://developer.mozilla.org/en/JavaScript/Guide">guide</a> on the Mozilla Developer Network.</p></div></header><!-- Articles--><article id="intro.authors"><h2>The Authors</h2><div><p>This guide is the work of two lovely <a href="http://stackoverflow.com/">Stack Overflow</a> users, <a href="http://stackoverflow.com/users/170224/ivo-wetzel">Ivo Wetzel</a>
 (Writing) and <a href="http://stackoverflow.com/users/313758/yi-jiang">Zhang Yi Jiang</a> (Design).</p></div></article><article id="intro.contributors"><h2>Contributors</h2><div><ul>
 <li><a href="https://github.com/caio">Caio Romão</a> (Spelling corrections)</li>
 <li><a href="https://github.com/blixt">Andreas Blixt</a> (Language corrections)</li>
@@ -876,7 +876,7 @@ gets defined in one <em>globally shared</em> namespace.</p>
 the scopes until it finds it. In the case that it reaches the global scope and 
 still has not found the requested name, it will raise a <code>ReferenceError</code>.</p>
 
-</div><div><h3>The bane of global variables</h3>
+</div><div><h3>The Bane of Global Variables</h3>
 
 <pre><code>// script A
 foo = &#39;42&#39;;
@@ -926,7 +926,7 @@ overwrites the global value of <code>i</code>. Using a <code>var</code> for the 
 have easily avoided this error. The <code>var</code> statement should <strong>never</strong> be left out 
 unless the <em>desired effect</em> is to affect the outer scope.</p>
 
-</div><div><h3>Local variables</h3>
+</div><div><h3>Local Variables</h3>
 
 <p>The only source for local variables in JavaScript are
 <a href="#function.general">function</a> parameters and variables that were declared via the 
@@ -1031,7 +1031,7 @@ if (!SomeImportantThing) {
 }
 </code></pre>
 
-</div><div><h3>Name resolution order</h3>
+</div><div><h3>Name Resolution Order</h3>
 
 <p>All scopes in JavaScript, including the <em>global scope</em>, have the special name 
 <a href="#function.this"><code>this</code></a> defined in them, which refers to the <em>current object</em>. </p>
@@ -1087,7 +1087,7 @@ while different in syntax, do behave the exact same way.</p>
 (function(){}());
 </code></pre>
 
-</div><div><h3>In conclusion</h3>
+</div><div><h3>In Conclusion</h3>
 
 <p>It is recommended to always use an <em>anonymous wrapper</em> for encapsulating code in 
 its own namespace. This does not only protect code against name clashes, it 
@@ -1860,4 +1860,4 @@ blocked by executing JavaScript.</p></div></article></section><!-- Footer--><foo
 <a href="https://github.com/visionmedia/jade/">jade
 
 </a>template.
-</p></footer><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script><script src="javascript/prettify.js"></script><script src="javascript/plugin.js"></script><script src="javascript/garden.js"></script></body></html>
+</p></footer><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script><script src="javascript/prettify.js"></script><script src="javascript/plugin.js"></script><script src="javascript/garden.js"></script></body></html>
