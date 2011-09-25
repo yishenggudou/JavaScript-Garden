@@ -423,7 +423,7 @@ a abbr {
 
 /* Desktop override */
 
-@media not device and screen and (min-width: 1000px) {
+@media screen and (min-width: 1000px) {
 	#nav_main {
 		display: block !important;
 		top: 0 !important;
