@@ -1,13 +1,3 @@
-/site/index.html
+/site
+/doc
 /build
-/html
-/log
-/node_modules
-/site/de
-/site/ru
-/site/zh
-/site/en
-/site/fi
-/site/tr
-*.md~
-*.src.md
