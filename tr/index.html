@@ -1,24 +1,40 @@
 <!DOCTYPE html><html lang="tr"><head><title>JavaScript Garden</title><meta charset="utf-8"><meta name="description" content="JavaScript'in Acayiplikleri ve Kusurları için bir Rehber."><link rel="stylesheet" href="../style/garden.css" media="all"><link rel="stylesheet" href="../style/print.css" media="print"><!--[if lt IE 9]>
 <script src="javascript/html5.js"></script>
 <![endif]-->
-</head><body><!-- Navigation--><nav id="nav_main"><div><ul><li><a href="/JavaScript-Garden/" title="JavaScript Garden in English">en</a></li><li><a href="/JavaScript-Garden/zh" title="JavaScript Garden 中文翻译">zh</a></li><li><a href="/JavaScript-Garden/ru" title="JavaScript Гарден по-русски">ru</a></li><li><a href="/JavaScript-Garden/fi" title="JavaScript-puutarha suomeksi">fi</a></li><li><a href="/JavaScript-Garden/pl" title="JavaScript Garden - ogród JavaScript po polsku">pl</a></li><li class="active"><a href="/JavaScript-Garden/tr" title="JavaScript Garden Türkçe">tr</a></li></ul><a id="top" href="#intro" title="Back to top">#top</a><a id="hide_menu" class="tablet">Hide Menu</a></div><ul><li class="nav_intro"><h1><a href="#intro">Giriş</a></h1><ul><li><a href="#intro.authors">Yazarlar</a></li><li><a href="#intro.contributors">Katkıda Bulunanlar</a></li><li><a href="#intro.license">Lisans</a></li></ul></li><li class="nav_object"><h1><a href="#object">Nesneler</a></h1><ul><li><a href="#object.general">Nesne Kullanımı ve Özellikleri</a></li><li><a href="#object.prototype">Prototip</a></li><li><a href="#object.hasownproperty"><code>hasOwnProperty</code></a></li><li><a href="#object.forinloop"><code>for in</code> Döngüsü</a></li></ul></li><li class="nav_function"><h1><a href="#function">Fonksiyonlar</a></h1><ul><li><a href="#function.general">Fonksiyon Tanımlaması ve Fonksiyon İfadesi</a></li><li><a href="#function.this"><code>this</code> Nasıl Çalışır</a></li><li><a href="#function.closures">Closure ve Referanslar</a></li><li><a href="#function.arguments"><code>arguments</code> Nesnesi</a></li><li><a href="#function.constructors">Nesne Oluşturucular</a></li><li><a href="#function.scopes">Kapsamlar ve İsim Uzayları</a></li></ul></li><li class="nav_array"><h1><a href="#array">Diziler</a></h1><ul><li><a href="#array.general">Dizi İterasyonu ve Özellikleri</a></li><li><a href="#array.constructor"><code>Array</code> Oluşturucusu</a></li></ul></li><li class="nav_types"><h1><a href="#types">Nesne Tipleri</a></h1><ul><li><a href="#types.equality">Eşitlik ve Karşılaştırmalar</a></li><li><a href="#types.typeof"><code>typeof</code> Operatörü</a></li><li><a href="#types.instanceof"><code>instanceof</code> Operatörü</a></li><li><a href="#types.casting">Tip Dönüşümleri</a></li></ul></li><li class="nav_core"><h1><a href="#core">Temel</a></h1><ul><li><a href="#core.eval">Neden <code>eval</code> Kullanılmamalı</a></li><li><a href="#core.undefined"><code>undefined</code> ve <code>null</code></a></li><li><a href="#core.semicolon">Otomatik Noktalı Virgül İlavesi</a></li></ul></li><li class="nav_other"><h1><a href="#other">Diğer</a></h1><ul><li><a href="#other.timeouts"><code>setTimeout</code> ve <code>setInterval</code></a></li></ul></li></ul></nav><!-- Mobile navigation--><nav id="nav_mobile"><a id="nav_prev_section" href="#">prev section<span class="nav_section_name">section name</span></a><a id="nav_next_section" href="#">next section<span class="nav_section_name">section name</span></a><a id="show_menu">show menu</a></nav><!-- Sections--><section id="intro"><!-- Introduction--><header id="intro.intro"><h1>Giriş</h1><div><p><strong>JavaScript Garden</strong> JavaScript programlama dilinin acayiplikleri üzerine
+</head><body><!-- Navigation--><nav id="nav_main"><div><ul><li class="active"><a href="/JavaScript-Garden/tr" title="JavaScript Garden Türkçe">tr</a></li><li><a href="/JavaScript-Garden/ru" title="JavaScript Гарден по-русски">ru</a></li><li><a href="/JavaScript-Garden/zh" title="JavaScript Garden 中文翻译">zh</a></li><li><a href="/JavaScript-Garden/pl" title="JavaScript Garden - ogród JavaScript po polsku">pl</a></li><li><a href="/JavaScript-Garden/" title="JavaScript Garden in English">en</a></li><li><a href="/JavaScript-Garden/ja" title="JavaScript Garden in Japanese">ja</a></li><li><a href="/JavaScript-Garden/ko" title="JavaScript Garden">ko</a></li><li><a href="/JavaScript-Garden/fi" title="JavaScript-puutarha suomeksi">fi</a></li></ul><a id="top" href="#intro" title="Back to top">#top</a><a id="hide_menu" class="tablet">Hide Menu</a></div><ul><li class="nav_intro"><h1><a href="#intro">Giriş</a></h1><ul></ul></li><li class="nav_object"><h1><a href="#object">Nesneler</a></h1><ul><li><a href="#object.general">Nesne Kullanımı ve Özellikleri</a></li><li><a href="#object.prototype">Prototip</a></li><li><a href="#object.hasownproperty"><code>hasOwnProperty</code></a></li><li><a href="#object.forinloop"><code>for in</code> Döngüsü</a></li></ul></li><li class="nav_function"><h1><a href="#function">Fonksiyonlar</a></h1><ul><li><a href="#function.general">Fonksiyon Tanımlaması ve Fonksiyon İfadesi</a></li><li><a href="#function.this"><code>this</code> Nasıl Çalışır</a></li><li><a href="#function.closures">Closure ve Referanslar</a></li><li><a href="#function.arguments"><code>arguments</code> Nesnesi</a></li><li><a href="#function.constructors">Nesne Oluşturucular</a></li><li><a href="#function.scopes">Kapsamlar ve İsim Uzayları</a></li></ul></li><li class="nav_array"><h1><a href="#array">Diziler</a></h1><ul><li><a href="#array.general">Dizi İterasyonu ve Özellikleri</a></li><li><a href="#array.constructor"><code>Array</code> Oluşturucusu</a></li></ul></li><li class="nav_types"><h1><a href="#types">Nesne Tipleri</a></h1><ul><li><a href="#types.equality">Eşitlik ve Karşılaştırmalar</a></li><li><a href="#types.typeof"><code>typeof</code> Operatörü</a></li><li><a href="#types.instanceof"><code>instanceof</code> Operatörü</a></li><li><a href="#types.casting">Tip Dönüşümleri</a></li></ul></li><li class="nav_core"><h1><a href="#core">Temel</a></h1><ul><li><a href="#core.eval">Neden <code>eval</code> Kullanılmamalı</a></li><li><a href="#core.undefined"><code>undefined</code> ve <code>null</code></a></li><li><a href="#core.semicolon">Otomatik Noktalı Virgül İlavesi</a></li></ul></li><li class="nav_other"><h1><a href="#other">Diğer</a></h1><ul><li><a href="#other.timeouts"><code>setTimeout</code> ve <code>setInterval</code></a></li></ul></li></ul></nav><!-- Mobile navigation--><nav id="nav_mobile"><a id="nav_prev_section" href="#">prev section<span class="nav_section_name">section name</span></a><a id="nav_next_section" href="#">next section<span class="nav_section_name">section name</span></a><a id="show_menu">show menu</a></nav><!-- Sections--><section id="intro"><!-- Introduction--><header id="intro.intro"><h1>Giriş</h1><div><p><strong>JavaScript Garden</strong> JavaScript programlama dilinin acayiplikleri üzerine
 derlenmiş bir döküman koleksiyonudur. Henüz ustalaşmamış JavaScript 
-programcılarının sıkça yaptığı yanlışlar, dile has ince hatalar ve performans
+programcılarının sıkça yaptığı yanlışlar, dile has incelikler ve performans
 sorunlarına karşı tavsiyeler içerir.</p>
 
 <p>JavaScript Garden&#39;ın amacı size JavaScript öğretmek <strong>değildir</strong>. Bu rehberde
 anlatılan konuları anlamak için JavaScript dilini önceden biliyor olmanız
-şiddetle tavsiye edilir. Eğer JavaScript dilinin temellerini öğrenmek
-istiyorsanız, lütfen Mozilla Programcı Ağı&#39;nda bulunan mükemmel <a href="https://developer.mozilla.org/en/JavaScript/Guide">rehbere</a>
-başvurun.</p></div></header><!-- Articles--><article id="intro.authors"><h2>Yazarlar</h2><div><p>Bu rehber, sevimli birer Stack Overflow kullanıcısı olan <a href="http://stackoverflow.com/users/170224/ivo-wetzel">Ivo Wetzel</a> (Yazım)
-ve <a href="http://stackoverflow.com/users/313758/yi-jiang">Zhang Yi Jiang</a> (Tasarım) tarafından hazırlanmıştır.</p></div></article><article id="intro.contributors"><h2>Katkıda Bulunanlar</h2><div><ul>
+gerekir. Eğer JavaScript dilinin temellerini öğrenmek istiyorsanız, lütfen 
+Mozilla Programcı Ağı&#39;nda bulunan mükemmel <a href="https://developer.mozilla.org/en/JavaScript/Guide">rehbere</a> başvurun.</p>
+
+<h2>Yazarlar</h2>
+
+<p>Bu rehber, sevimli birer <a href="http://stackoverflow.com/">Stack Overflow</a> kullanıcısı olan <a href="http://stackoverflow.com/users/170224/ivo-wetzel">Ivo Wetzel</a> (Yazım)
+ve <a href="http://stackoverflow.com/users/313758/yi-jiang">Zhang Yi Jiang</a> (Tasarım) tarafından hazırlanmıştır.</p>
+
+<h2>Katkıda Bulunanlar</h2>
+
+<ul>
 <li><a href="https://github.com/caio">Caio Romão</a> (Yazım düzeltmeleri)</li>
 <li><a href="https://github.com/blixt">Andreas Blixt</a> (Dil düzeltmeleri)</li>
-</ul></div></article><article id="intro.license"><h2>Lisans</h2><div><p>JavaScript Garden <a href="https://github.com/BonsaiDen/JavaScript-Garden/blob/next/LICENSE">MIT lisansı</a> altında yayınlanmıştır ve <a href="https://github.com/BonsaiDen/JavaScript-Garden">GitHub</a>
+</ul>
+
+<h2>Sunum</h2>
+
+<p>JavaScript Garden GitHub üzerinden, ve ayrıca <a href="http://cramerdev.com/">Cramer Development</a> 
+tarafından desteklenen <a href="http://javascriptgarden.info/">JavaScriptGarden.info</a> adresinden sunulmaktadır.</p>
+
+<h2>Lisans</h2>
+
+<p>JavaScript Garden <a href="https://github.com/BonsaiDen/JavaScript-Garden/blob/next/LICENSE">MIT lisansı</a> altında yayınlanmıştır ve <a href="https://github.com/BonsaiDen/JavaScript-Garden">GitHub</a>
 üzerinde bulunmaktadır. Eğer rehberde yanlışlıklar veya yazım hatalarına
-rastlarsanız lütfen <a href="https://github.com/BonsaiDen/JavaScript-Garden/issues">sorunu bildirin</a> veya bir <code>pull request</code> gönderin.
-Bizi ayrıca Stack Overflow&#39;da <a href="http://chat.stackoverflow.com/rooms/17/javascript">JavaScript sohbet kanalında</a> da 
-bulabilirsiniz.</p></div></article></section><section id="object"><!-- Introduction--><header id="object.intro"><h1>Nesneler</h1></header><!-- Articles--><article id="object.general"><h2>Nesne Kullanımı ve Özellikleri</h2><div><p>JavaScript&#39;te iki istisna dışında her şey bir nesne olarak davranır;
+rastlarsanız lütfen <a href="https://github.com/BonsaiDen/JavaScript-Garden/issues">sorunu bize bildirin</a> veya bir <code>pull request</code> gönderin.
+Bizi ayrıca Stack Overflow&#39;da <a href="http://chat.stackoverflow.com/rooms/17/javascript">JavaScript sohbet odasında</a> da 
+bulabilirsiniz.</p></div></header><!-- Articles--></section><section id="object"><!-- Introduction--><header id="object.intro"><h1>Nesneler</h1></header><!-- Articles--><article id="object.general"><h2>Nesne Kullanımı ve Özellikleri</h2><div><p>JavaScript&#39;te iki istisna dışında her şey bir nesne olarak davranır;
 bu istisnalar da <a href="#core.undefined"><code>null</code></a> ve <a href="#core.undefined"><code>undefined</code></a> 
 &#39;dır.</p>
 
@@ -41,7 +57,7 @@ sayıları bir reel sayı olarak algılama hatasıdır.</p>
 uygulanabilecek bazı çözümler vardır. </p>
 
 <pre><code>2..toString(); // ikinci nokta doğru şekilde algılanır
-2 .toString(); // noktanın solundki boşluğa dikkat edin
+2 .toString(); // noktanın solundaki boşluğa dikkat edin
 (2).toString(); // ilk önce 2 değerlendirilir
 </code></pre>
 
@@ -84,8 +100,8 @@ açabilecek özellik isimlerinin kullanılmasına izin vermesidir.</p>
 </div><div><h3>Özellikleri silmek</h3>
 
 <p>Bir nesnenin özelliklerinden birini silmenin tek yolu <code>delete</code> operatörünü 
-kullanmaktır; özelliğe <code>undefined</code> veya <code>null</code> değerlerini atamak <strong>sadece</strong>
-özelliğin değerini kaldırır, anahtarı değil.</p>
+kullanmaktır; özelliğe <code>undefined</code> veya <code>null</code> değerlerini atamak sadece
+özelliğin <em>değerini</em> kaldırır, <em>anahtarı</em> değil.</p>
 
 <pre><code>var obj = {
     bar: 1,
@@ -280,8 +296,9 @@ doğru sonuç alabilmek için <code>hasOwnProperty</code><em>haricen</em> kullan
 
 foo.hasOwnProperty(&#39;bar&#39;); // her zaman false verir
 
-// hasOwnProperty haricen kullanıldığında &#39;this&#39; foo olur
-{}.hasOwnProperty.call(foo, &#39;bar&#39;); // true
+// hasOwnProperty başka bir nesne üzerinde
+// kullanıldığında &#39;this&#39; foo olur
+({}).hasOwnProperty.call(foo, &#39;bar&#39;); // true
 </code></pre>
 
 </div><div><h3>Sonuç</h3>
@@ -372,8 +389,8 @@ var foo = function() {};
 <p>Yukarıdaki <code>var</code> anahtar kelimesi bir bildirim olduğu için <code>foo</code> değişkeni
 program çalışmadan önce yukarı alınır, program çalıştığında <code>foo</code> tanımlanmştır.</p>
 
-<p>Fakat değer ataması program çalışırken gerçekleşeceği için, ilgili satır
-çalıştığında, <code>foo</code> değişkeninin değeri varsayılan olarak
+<p>Fakat değer atamaları sadece program çalışırken gerçekleşeceği için, ilgili
+satır çalıştığında, <code>foo</code> değişkeninin değeri varsayılan olarak
 <a href="#core.undefined">undefined</a> olacaktır.</p>
 
 </div><div><h3>İsimli fonksiyon ifadesi</h3>
@@ -1202,11 +1219,11 @@ hem de daha anlaşılır bir sentaksa sahiptirler; bu nedenle programın
 okunabilirliğini de artırırlar.</p></div></article></section><section id="types"><!-- Introduction--><header id="types.intro"><h1>Nesne Tipleri</h1></header><!-- Articles--><article id="types.equality"><h2>Eşitlik ve Karşılaştırmalar</h2><div><p>JavaScript&#39;de nesnelerin değerlerinin eşitliğini kontrol etmenin iki farklı yolu
 vardır. </p>
 
-</div><div><h3>Eşittir operatörü</h3>
+</div><div><h3>Eşitlik operatörü</h3>
 
-<p>Eşittir operatörü iki adet eşittir işaretinden oluşur: <code>==</code></p>
+<p>Eşitlik operatörü iki adet eşittir işaretinden oluşur: <code>==</code></p>
 
-<p>JavaScript <em>weakly typed</em> bir dildir, bu nedenle, eşittir operatörü ile
+<p>JavaScript <em>weakly typed</em> bir dildir. Bu nedenle, eşitlik operatörü ile
 değişkenleri karşılaştırırken <strong>tip dönüşümü</strong> yapar.</p>
 
 <pre><code>""           ==   "0"           // false
@@ -1720,7 +1737,7 @@ fonksiyonun ileri bir zamanda çalışmasını sağlamak mümkündür.</p>
 
 <aside>
   <p><strong>Not:</strong> Zamanlama fonksiyonları ECMAScript Standartına dahil <strong>değildir</strong>,
-  <a href="http://en.wikipedia.org/wiki/Document_Object_Model">DOM</a> ile birlikte tanımlanırlar.</p>
+  <a href="http://en.wikipedia.org/wiki/Document_Object_Model" title="Document Object Model">DOM</a> ile birlikte tanımlanırlar.</p>
 </aside>
 
 <pre><code>function foo() {}
@@ -1836,8 +1853,8 @@ olarak <code>eval</code> kullanılır.</p>
 <aside>
   <p><strong>Not:</strong> Zamanlama fonksiyonları ECMAScript Standartında bulunmadığı için,
   bir katar argümanı almaları durumundaki çalışma şekilleri JavaScript motorları
-  arasında farklılık gösterebilir. Gerçekten de, Microsoft&#39;un JScript motoru
-  <code>eval</code> yerine <code>Function</code> oluşturucusunu kullanır.</p>
+  arasında farklılık gösterebilir. Mesela, Microsoft&#39;un JScript motoru <code>eval</code>
+  yerine <code>Function</code> oluşturucusunu kullanır.</p>
 </aside>
 
 <pre><code>function foo() {
@@ -1886,14 +1903,8 @@ bulunduran bir <em>isimsiz fonksiyon</em> kullanılmalıdır.</p>
 
 <p>Ayrıca, <code>setInterval</code> fonksiyonu çalışan JavaScript programı tarafından bloke
 olmadığı için tercih edilmemelidir.</p></div></article></section><!-- Footer--><footer><p>Copyright &copy; 2011. Built with 
-<a href="http://nodejs.org/">Node.js 
-
-</a>using a
-<a href="https://github.com/visionmedia/jade/">jade 
-
-</a>template. 
+<a href="http://nodejs.org/">Node.js </a>using a
+<a href="https://github.com/visionmedia/jade/">jade </a>template. 
 Hosted by 
-<a href="http://cramerdev.com">Cramer Development
-
-</a>.
+<a href="http://cramerdev.com">Cramer Development</a>.
 </p></footer><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script><script src="../javascript/prettify.js"></script><script src="../javascript/plugin.js"></script><script src="../javascript/garden.js"></script></body></html>
