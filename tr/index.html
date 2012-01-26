@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="tr"><head><title>JavaScript Garden</title><meta charset="utf-8"><meta name="description" content="JavaScript'in Acayiplikleri ve Kusurları için bir Rehber."><link rel="stylesheet" href="../style/garden.css" media="all"><link rel="stylesheet" href="../style/print.css" media="print"><!--[if lt IE 9]>
 <script src="javascript/html5.js"></script>
 <![endif]-->
-</head><body><!-- Navigation--><nav id="nav_main"><div><ul><li class="active"><a href="/JavaScript-Garden/tr" title="JavaScript Garden Türkçe">tr</a></li><li><a href="/JavaScript-Garden/ru" title="JavaScript Гарден по-русски">ru</a></li><li><a href="/JavaScript-Garden/zh" title="JavaScript Garden 中文翻译">zh</a></li><li><a href="/JavaScript-Garden/pl" title="JavaScript Garden - ogród JavaScript po polsku">pl</a></li><li><a href="/JavaScript-Garden/" title="JavaScript Garden in English">en</a></li><li><a href="/JavaScript-Garden/ja" title="JavaScript Garden in Japanese">ja</a></li><li><a href="/JavaScript-Garden/ko" title="JavaScript Garden">ko</a></li><li><a href="/JavaScript-Garden/fi" title="JavaScript-puutarha suomeksi">fi</a></li></ul><a id="top" href="#intro" title="Back to top">#top</a><a id="hide_menu" class="tablet">Hide Menu</a></div><ul><li class="nav_intro"><h1><a href="#intro">Giriş</a></h1><ul></ul></li><li class="nav_object"><h1><a href="#object">Nesneler</a></h1><ul><li><a href="#object.general">Nesne Kullanımı ve Özellikleri</a></li><li><a href="#object.prototype">Prototip</a></li><li><a href="#object.hasownproperty"><code>hasOwnProperty</code></a></li><li><a href="#object.forinloop"><code>for in</code> Döngüsü</a></li></ul></li><li class="nav_function"><h1><a href="#function">Fonksiyonlar</a></h1><ul><li><a href="#function.general">Fonksiyon Tanımlaması ve Fonksiyon İfadesi</a></li><li><a href="#function.this"><code>this</code> Nasıl Çalışır</a></li><li><a href="#function.closures">Closure ve Referanslar</a></li><li><a href="#function.arguments"><code>arguments</code> Nesnesi</a></li><li><a href="#function.constructors">Nesne Oluşturucular</a></li><li><a href="#function.scopes">Kapsamlar ve İsim Uzayları</a></li></ul></li><li class="nav_array"><h1><a href="#array">Diziler</a></h1><ul><li><a href="#array.general">Dizi İterasyonu ve Özellikleri</a></li><li><a href="#array.constructor"><code>Array</code> Oluşturucusu</a></li></ul></li><li class="nav_types"><h1><a href="#types">Nesne Tipleri</a></h1><ul><li><a href="#types.equality">Eşitlik ve Karşılaştırmalar</a></li><li><a href="#types.typeof"><code>typeof</code> Operatörü</a></li><li><a href="#types.instanceof"><code>instanceof</code> Operatörü</a></li><li><a href="#types.casting">Tip Dönüşümleri</a></li></ul></li><li class="nav_core"><h1><a href="#core">Temel</a></h1><ul><li><a href="#core.eval">Neden <code>eval</code> Kullanılmamalı</a></li><li><a href="#core.undefined"><code>undefined</code> ve <code>null</code></a></li><li><a href="#core.semicolon">Otomatik Noktalı Virgül İlavesi</a></li></ul></li><li class="nav_other"><h1><a href="#other">Diğer</a></h1><ul><li><a href="#other.timeouts"><code>setTimeout</code> ve <code>setInterval</code></a></li></ul></li></ul></nav><!-- Mobile navigation--><nav id="nav_mobile"><a id="nav_prev_section" href="#">prev section<span class="nav_section_name">section name</span></a><a id="nav_next_section" href="#">next section<span class="nav_section_name">section name</span></a><a id="show_menu">show menu</a></nav><!-- Sections--><section id="intro"><!-- Introduction--><header id="intro.intro"><h1>Giriş</h1><div><p><strong>JavaScript Garden</strong> JavaScript programlama dilinin acayiplikleri üzerine
+</head><body><!-- Navigation--><nav id="nav_main"><div><ul><li><a href="/JavaScript-Garden/pl" title="JavaScript Garden - ogród JavaScript po polsku">pl</a></li><li><a href="/JavaScript-Garden/" title="JavaScript Garden in English">en</a></li><li><a href="/JavaScript-Garden/ru" title="JavaScript Гарден по-русски">ru</a></li><li><a href="/JavaScript-Garden/zh" title="JavaScript Garden 中文翻译">zh</a></li><li class="active"><a href="/JavaScript-Garden/tr" title="JavaScript Garden Türkçe">tr</a></li><li><a href="/JavaScript-Garden/es" title="JavaScript Garden es Español">es</a></li><li><a href="/JavaScript-Garden/ja" title="JavaScript Garden in Japanese">ja</a></li><li><a href="/JavaScript-Garden/ko" title="JavaScript Garden">ko</a></li><li><a href="/JavaScript-Garden/fi" title="JavaScript-puutarha suomeksi">fi</a></li></ul><a id="top" href="#intro" title="Back to top">#top</a><a id="hide_menu" class="tablet">Hide Menu</a></div><ul><li class="nav_intro"><h1><a href="#intro">Giriş</a></h1><ul></ul></li><li class="nav_object"><h1><a href="#object">Nesneler</a></h1><ul><li><a href="#object.general">Nesne Kullanımı ve Özellikleri</a></li><li><a href="#object.prototype">Prototip</a></li><li><a href="#object.hasownproperty"><code>hasOwnProperty</code></a></li><li><a href="#object.forinloop"><code>for in</code> Döngüsü</a></li></ul></li><li class="nav_function"><h1><a href="#function">Fonksiyonlar</a></h1><ul><li><a href="#function.general">Fonksiyon Tanımlaması ve Fonksiyon İfadesi</a></li><li><a href="#function.this"><code>this</code> Nasıl Çalışır</a></li><li><a href="#function.closures">Closure ve Referanslar</a></li><li><a href="#function.arguments"><code>arguments</code> Nesnesi</a></li><li><a href="#function.constructors">Nesne Oluşturucular</a></li><li><a href="#function.scopes">Kapsamlar ve İsim Uzayları</a></li></ul></li><li class="nav_array"><h1><a href="#array">Diziler</a></h1><ul><li><a href="#array.general">Dizi İterasyonu ve Özellikleri</a></li><li><a href="#array.constructor"><code>Array</code> Oluşturucusu</a></li></ul></li><li class="nav_types"><h1><a href="#types">Nesne Tipleri</a></h1><ul><li><a href="#types.equality">Eşitlik ve Karşılaştırmalar</a></li><li><a href="#types.typeof"><code>typeof</code> Operatörü</a></li><li><a href="#types.instanceof"><code>instanceof</code> Operatörü</a></li><li><a href="#types.casting">Tip Dönüşümleri</a></li></ul></li><li class="nav_core"><h1><a href="#core">Temel</a></h1><ul><li><a href="#core.eval">Neden <code>eval</code> Kullanılmamalı</a></li><li><a href="#core.undefined"><code>undefined</code> ve <code>null</code></a></li><li><a href="#core.semicolon">Otomatik Noktalı Virgül İlavesi</a></li><li><a href="#core.delete"><code>delete</code> Operatörü</a></li></ul></li><li class="nav_other"><h1><a href="#other">Diğer</a></h1><ul><li><a href="#other.timeouts"><code>setTimeout</code> ve <code>setInterval</code></a></li></ul></li></ul></nav><!-- Mobile navigation--><nav id="nav_mobile"><a id="nav_prev_section" href="#">prev section<span class="nav_section_name">section name</span></a><a id="nav_next_section" href="#">next section<span class="nav_section_name">section name</span></a><a id="show_menu">show menu</a></nav><!-- Sections--><section id="intro"><!-- Introduction--><header id="intro.intro"><h1>Giriş</h1><div><p><strong>JavaScript Garden</strong> JavaScript programlama dilinin acayiplikleri üzerine
 derlenmiş bir döküman koleksiyonudur. Henüz ustalaşmamış JavaScript 
 programcılarının sıkça yaptığı yanlışlar, dile has incelikler ve performans
 sorunlarına karşı tavsiyeler içerir.</p>
@@ -894,7 +894,7 @@ kapsamı <strong>bulunmaz</strong>; bu nedenle, dilde sadece <em>fonksiyon kapsa
   kullanıldığında <code>{...}</code> notasyonu bir nesne değişmezi olarak <strong>değil</strong>
   blok ifade olarak değerlendirilir. Bu özellik 
   <a href="#core.semicolon">otomatik noktalı virgül ilavesi</a> ile birleştiğinde fark
-  edilmesizor hatalara neden olabilir.</p>
+  edilmesi zor hatalara neden olabilir.</p>
 </aside>
 
 <p>JavaScript&#39;te isim uzayları kavramı da bulunmaz, tanımlanan herşey
@@ -1732,7 +1732,92 @@ bu nedenle, yukarıdaki satır <code>undefined is not a function</code> hata mes
 ayraçların kendilerinden önceki ifade ile aynı satırda tutulması ve tek satırlık
 <code>if</code> ve <code>else</code> ifadelerinde bile ayraçların ihmal edilmemesi önerilir. Her iki
 önlem de hem programın tutarlılığını artıracak, hem de JavaScript
-çözümleyicisinin programın davranışını değiştirmesini engelleyecektir.</p></div></article></section><section id="other"><!-- Introduction--><header id="other.intro"><h1>Diğer</h1></header><!-- Articles--><article id="other.timeouts"><h2><code>setTimeout</code> ve <code>setInterval</code></h2><div><p>JavaScript asenkron olduğu için <code>setTimeout</code> ve <code>setInterval</code> kullanarak bir
+çözümleyicisinin programın davranışını değiştirmesini engelleyecektir.</p></div></article><article id="core.delete"><h2><code>delete</code> Operatörü</h2><div><p>Kısacası, genel kapsamda tanımlanmış değişkenleri, fonksiyonları ve <code>DontDelete</code>
+niteliğine sahip bazı başka şeyleri silmek <em>imkansızdır</em>.</p>
+
+</div><div><h3>Genel kapsam ve fonksiyon kapsamı</h3>
+
+<p>Bir değişken veya fonksiyon genel kapsamda veya
+<a href="#function.scopes">fonksiyon kapsamında</a> tanımlandığında aktivasyon nesnesinin
+veya global nesnenin bir özelliği olacaktır. Bu tür özelliklerin bir takım
+nitelikleri vardır ve bunlardan biri <code>DontDelete</code> niteliğidir. Genel kapsamda ve
+fonksiyon kapsamında tanımlanan değişkenler ve fonksiyonlar yaratıldıklarında
+her zaman <code>DontDelete</code> niteliğine sahip olacaktır, ve bu nedenle silinemezler.</p>
+
+<pre><code>// genel kapsam değişkeni:
+var a = 1; // DontDelete niteliğine sahip
+delete a; // false
+a; // 1
+
+// normal bir fonksiyon:
+function f() {} // DontDelete niteliğine sahip
+delete f; // false
+typeof f; // "function"
+
+// başka bir değişkene atamak işe yaramaz:
+f = 1;
+delete f; // false
+f; // 1
+</code></pre>
+
+</div><div><h3>Açıkça tanımlanan özellikler</h3>
+
+<p>Açıkça tanımlanan özellikleri silmek mümkündür.</p>
+
+<pre><code>// tanımlanan özellik:
+var obj = {x: 1};
+obj.y = 2;
+delete obj.x; // true
+delete obj.y; // true
+obj.x; // undefined
+obj.y; // undefined
+</code></pre>
+
+<p>Yukarıdaki örnekte <code>obj.x</code> ve <code>obj.y</code> silinebilir çünkü <code>DontDelete</code> niteliğine
+sahip değillerdir. Aynı nedenle aşağıdakini yapmak da mümkündür:</p>
+
+<pre><code>// IE hariç çalışır:
+var GLOBAL_OBJECT = this;
+GLOBAL_OBJECT.a = 1;
+a === GLOBAL_OBJECT.a; // true - genel değişken
+delete GLOBAL_OBJECT.a; // true
+GLOBAL_OBJECT.a; // undefined
+</code></pre>
+
+<p>Burada <code>a</code>&#39;yı silmek için bir hile kullanıyoruz. <a href="#function.this"><code>this</code></a>
+burada genel nesneye işaret ediyor ve <code>a</code> değişkenini onun özelliği olarak
+atıyoruz, ve böylece onu silebiliyoruz.</p>
+
+<p>IE (en azından 6-8) bazı hatalar içerdiğinden yukarıdaki örnek çalışmayacaktır.</p>
+
+</div><div><h3>Fonksiyon argümanları ve önceden tanımlı özellikler</h3>
+
+<p>Fonksiyonlara verilen argümanlar, <a href="#function.arguments"><code>arguments</code> nesnesi</a>
+ve önceden tanımlı özellikler de <code>DontDelete</code> niteliğine sahiptir.</p>
+
+<pre><code>// fonksiyon argümanları ve özellikler:
+(function (x) {
+  delete arguments; // false
+  typeof arguments; // "object"
+
+  delete x; // false
+  x; // 1
+
+  function f(){}
+  delete f.length; // false
+  typeof f.length; // "number"
+})(1);
+</code></pre>
+
+</div><div><h3><em>Host</em> nesneler</h3>
+
+<p><code>Host</code> nesneler üzerinde kullanıldığında <code>delete</code> operatörünün davranışı belirsiz
+olabilir. Standarda göre <code>host</code> nesneler istedikleri davranışı uygulayabilirler.</p>
+
+</div><div><h3>Sonuç</h3>
+
+<p><code>delete</code> operatörünün davranışı genellikle belirsizdir ve güvenle kullanılabileceği
+tek yer sıradanan nesneler üzerinde açıkça tanımlanan özelliklerdir.</p></div></article></section><section id="other"><!-- Introduction--><header id="other.intro"><h1>Diğer</h1></header><!-- Articles--><article id="other.timeouts"><h2><code>setTimeout</code> ve <code>setInterval</code></h2><div><p>JavaScript asenkron olduğu için <code>setTimeout</code> ve <code>setInterval</code> kullanarak bir
 fonksiyonun ileri bir zamanda çalışmasını sağlamak mümkündür.</p>
 
 <aside>
@@ -1792,7 +1877,7 @@ kullanıldığında, fonksiyon çağrılarının istiflenmesine neden olur.</p>
 <pre><code>function foo(){
     // 1 saniye süren bir işlem
 }
-setInterval(foo, 100);
+setInterval(foo, 1000);
 </code></pre>
 
 <p>Yukarıdaki örnekte <code>foo</code> fonksiyonu bir kez çağrılıp bir saniye boyunca bloke
@@ -1809,7 +1894,7 @@ kullanmaktır.</p>
 
 <pre><code>function foo(){
     // 1 saniye süren bir işlem
-    setTimeout(foo, 100);
+    setTimeout(foo, 1000);
 }
 foo();
 </code></pre>

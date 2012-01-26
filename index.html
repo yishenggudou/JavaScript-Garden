@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><title>JavaScript Garden</title><meta charset="utf-8"><meta name="description" content="A Guide to JavaScript's Quirks and Flaws."><link rel="stylesheet" href="style/garden.css" media="all"><link rel="stylesheet" href="style/print.css" media="print"><!--[if lt IE 9]>
 <script src="javascript/html5.js"></script>
 <![endif]-->
-</head><body><!-- Navigation--><nav id="nav_main"><div><ul><li><a href="/JavaScript-Garden/tr" title="JavaScript Garden Türkçe">tr</a></li><li><a href="/JavaScript-Garden/ru" title="JavaScript Гарден по-русски">ru</a></li><li><a href="/JavaScript-Garden/zh" title="JavaScript Garden 中文翻译">zh</a></li><li><a href="/JavaScript-Garden/pl" title="JavaScript Garden - ogród JavaScript po polsku">pl</a></li><li class="active"><a href="/JavaScript-Garden/" title="JavaScript Garden in English">en</a></li><li><a href="/JavaScript-Garden/ja" title="JavaScript Garden in Japanese">ja</a></li><li><a href="/JavaScript-Garden/ko" title="JavaScript Garden">ko</a></li><li><a href="/JavaScript-Garden/fi" title="JavaScript-puutarha suomeksi">fi</a></li></ul><a id="top" href="#intro" title="Back to top">#top</a><a id="hide_menu" class="tablet">Hide Menu</a></div><ul><li class="nav_intro"><h1><a href="#intro">Intro</a></h1><ul></ul></li><li class="nav_object"><h1><a href="#object">Objects</a></h1><ul><li><a href="#object.general">Object Usage and Properties</a></li><li><a href="#object.prototype">The Prototype</a></li><li><a href="#object.hasownproperty"><code>hasOwnProperty</code></a></li><li><a href="#object.forinloop">The <code>for in</code> Loop</a></li></ul></li><li class="nav_function"><h1><a href="#function">Functions</a></h1><ul><li><a href="#function.general">Function Declarations and Expressions</a></li><li><a href="#function.this">How <code>this</code> Works</a></li><li><a href="#function.closures">Closures and References</a></li><li><a href="#function.arguments">The <code>arguments</code> Object</a></li><li><a href="#function.constructors">Constructors</a></li><li><a href="#function.scopes">Scopes and Namespaces</a></li></ul></li><li class="nav_array"><h1><a href="#array">Arrays</a></h1><ul><li><a href="#array.general">Array Iteration and Properties</a></li><li><a href="#array.constructor">The <code>Array</code> Constructor</a></li></ul></li><li class="nav_types"><h1><a href="#types">Types</a></h1><ul><li><a href="#types.equality">Equality and Comparisons</a></li><li><a href="#types.typeof">The <code>typeof</code> Operator</a></li><li><a href="#types.instanceof">The <code>instanceof</code> Operator</a></li><li><a href="#types.casting">Type Casting</a></li></ul></li><li class="nav_core"><h1><a href="#core">Core</a></h1><ul><li><a href="#core.eval">Why Not to Use <code>eval</code></a></li><li><a href="#core.undefined"><code>undefined</code> and <code>null</code></a></li><li><a href="#core.semicolon">Automatic Semicolon Insertion</a></li><li><a href="#core.delete">The <code>delete</code> Operator</a></li></ul></li><li class="nav_other"><h1><a href="#other">Other</a></h1><ul><li><a href="#other.timeouts"><code>setTimeout</code> and <code>setInterval</code></a></li></ul></li></ul></nav><!-- Mobile navigation--><nav id="nav_mobile"><a id="nav_prev_section" href="#">prev section<span class="nav_section_name">section name</span></a><a id="nav_next_section" href="#">next section<span class="nav_section_name">section name</span></a><a id="show_menu">show menu</a></nav><!-- Sections--><section id="intro"><!-- Introduction--><header id="intro.intro"><h1>Intro</h1><div><p><strong>JavaScript Garden</strong> is a growing collection of documentation about the most 
+</head><body><!-- Navigation--><nav id="nav_main"><div><ul><li><a href="/JavaScript-Garden/pl" title="JavaScript Garden - ogród JavaScript po polsku">pl</a></li><li class="active"><a href="/JavaScript-Garden/" title="JavaScript Garden in English">en</a></li><li><a href="/JavaScript-Garden/ru" title="JavaScript Гарден по-русски">ru</a></li><li><a href="/JavaScript-Garden/zh" title="JavaScript Garden 中文翻译">zh</a></li><li><a href="/JavaScript-Garden/tr" title="JavaScript Garden Türkçe">tr</a></li><li><a href="/JavaScript-Garden/es" title="JavaScript Garden es Español">es</a></li><li><a href="/JavaScript-Garden/ja" title="JavaScript Garden in Japanese">ja</a></li><li><a href="/JavaScript-Garden/ko" title="JavaScript Garden">ko</a></li><li><a href="/JavaScript-Garden/fi" title="JavaScript-puutarha suomeksi">fi</a></li></ul><a id="top" href="#intro" title="Back to top">#top</a><a id="hide_menu" class="tablet">Hide Menu</a></div><ul><li class="nav_intro"><h1><a href="#intro">Intro</a></h1><ul></ul></li><li class="nav_object"><h1><a href="#object">Objects</a></h1><ul><li><a href="#object.general">Object Usage and Properties</a></li><li><a href="#object.prototype">The Prototype</a></li><li><a href="#object.hasownproperty"><code>hasOwnProperty</code></a></li><li><a href="#object.forinloop">The <code>for in</code> Loop</a></li></ul></li><li class="nav_function"><h1><a href="#function">Functions</a></h1><ul><li><a href="#function.general">Function Declarations and Expressions</a></li><li><a href="#function.this">How <code>this</code> Works</a></li><li><a href="#function.closures">Closures and References</a></li><li><a href="#function.arguments">The <code>arguments</code> Object</a></li><li><a href="#function.constructors">Constructors</a></li><li><a href="#function.scopes">Scopes and Namespaces</a></li></ul></li><li class="nav_array"><h1><a href="#array">Arrays</a></h1><ul><li><a href="#array.general">Array Iteration and Properties</a></li><li><a href="#array.constructor">The <code>Array</code> Constructor</a></li></ul></li><li class="nav_types"><h1><a href="#types">Types</a></h1><ul><li><a href="#types.equality">Equality and Comparisons</a></li><li><a href="#types.typeof">The <code>typeof</code> Operator</a></li><li><a href="#types.instanceof">The <code>instanceof</code> Operator</a></li><li><a href="#types.casting">Type Casting</a></li></ul></li><li class="nav_core"><h1><a href="#core">Core</a></h1><ul><li><a href="#core.eval">Why Not to Use <code>eval</code></a></li><li><a href="#core.undefined"><code>undefined</code> and <code>null</code></a></li><li><a href="#core.semicolon">Automatic Semicolon Insertion</a></li><li><a href="#core.delete">The <code>delete</code> Operator</a></li></ul></li><li class="nav_other"><h1><a href="#other">Other</a></h1><ul><li><a href="#other.timeouts"><code>setTimeout</code> and <code>setInterval</code></a></li></ul></li></ul></nav><!-- Mobile navigation--><nav id="nav_mobile"><a id="nav_prev_section" href="#">prev section<span class="nav_section_name">section name</span></a><a id="nav_next_section" href="#">next section<span class="nav_section_name">section name</span></a><a id="show_menu">show menu</a></nav><!-- Sections--><section id="intro"><!-- Introduction--><header id="intro.intro"><h1>Intro</h1><div><p><strong>JavaScript Garden</strong> is a growing collection of documentation about the most 
 quirky parts of the JavaScript programming language. It gives advice to 
 avoid common mistakes and subtle bugs, as well as performance issues and bad 
 practices, that non-expert JavaScript programmers may encounter on their 
@@ -452,7 +452,7 @@ foo.call(bar, 1, 2, 3); // results in a = 1, b = 2, c = 3
 <code>this</code> inside the called function gets <strong>explicitly set</strong> to the first argument 
 of the corresponding function call.</p>
 
-<p>As a result, the above example the <em>method case</em> does <strong>not</strong> apply, and <code>this</code> 
+<p>As a result, in the above example the <em>method case</em> does <strong>not</strong> apply, and <code>this</code> 
 inside of <code>foo</code> will be set to <code>bar</code>.</p>
 
 <aside>
@@ -1850,7 +1850,7 @@ intervals, result in function calls stacking up.</p>
 <pre><code>function foo(){
     // something that blocks for 1 second
 }
-setInterval(foo, 100);
+setInterval(foo, 1000);
 </code></pre>
 
 <p>In the above code, <code>foo</code> will get called once and will then block for one second.</p>
@@ -1866,7 +1866,7 @@ the function itself.</p>
 
 <pre><code>function foo(){
     // something that blocks for 1 second
-    setTimeout(foo, 100);
+    setTimeout(foo, 1000);
 }
 foo();
 </code></pre>
@@ -1896,8 +1896,17 @@ for(var i = 1; i &lt; 1000; i++) {
 }
 </code></pre>
 
-<p>There might still be timeouts that are unaffected by this arbitrary number;
-therefore, is is instead recommended to keep track of all the timeout IDs, so
+<p>But there might still be timeouts that are unaffected by this arbitrary number. Another way of doing this is to consider that the ID given to a timeout is incremented by one everytime you call <code>setTimeout</code>.</p>
+
+<pre><code>// clear "all" timeouts
+var biggestTimeoutId = window.setTimeout(function(){}, 1),
+i;
+for(i = 1; i &lt;= biggestTimeoutId; i++) {
+    clearTimeout(i);
+}
+</code></pre>
+
+<p>But even though this works on all main browsers nowadays, it isn&#39;t specified that the IDs should be ordered that way and it may change. Therefore, it is instead recommended to keep track of all the timeout IDs, so
 they can be cleared specifically.</p>
 
 </div><div><h3>Hidden use of <code>eval</code></h3>
