@@ -294,6 +294,9 @@ foo.hasOwnProperty(&#39;bar&#39;); // always returns false
 
 // Use another Object&#39;s hasOwnProperty and call it with &#39;this&#39; set to foo
 ({}).hasOwnProperty.call(foo, &#39;bar&#39;); // true
+
+// It&#39;s also possible use the hasOwnProperty property from the Object property for this purpuse
+Object.prototype.hasOwnProperty.call(obj, &#39;bar&#39;); // true
 </code></pre>
 
 </div><div><h3>In Conclusion</h3>
@@ -741,7 +744,7 @@ its properties.</p>
 function call that is preceded by the <code>new</code> keyword acts as a constructor.</p>
 
 <p>Inside the constructor - the called function - the value of <code>this</code> refers to a 
-newly created <code>Object</code>. The <a href="#object.prototype"><code>prototype</code></a> of this <strong>new</strong> 
+newly created object. The <a href="#object.prototype">prototype</a> of this <strong>new</strong> 
 object is set to the <code>prototype</code> of the function object that was invoked as the
 constructor.</p>
 
@@ -869,7 +872,7 @@ which solution is better suited for the needs of the application, it is
 especially important to choose a specific style of object creation <strong>and stick</strong> 
 with it.</p></div></article><article id="function.scopes"><h2>Scopes and Namespaces</h2><div><p>Although JavaScript deals fine with the syntax of two matching curly
 braces for blocks, it does <strong>not</strong> support block scope; hence, all that is left 
-is in the language is <em>function scope</em>.</p>
+in the language is <em>function scope</em>.</p>
 
 <pre><code>function test() { // a scope
     for(var i = 0; i &lt; 10; i++) { // not a scope
@@ -1096,12 +1099,14 @@ function() {}
 () // call the result of the evaluation
 </code></pre>
 
-<p>There are other ways for evaluating and calling the function expression; which, 
+<p>There are other ways for evaluating and directly calling the function expression; which, 
 while different in syntax, do behave the exact same way.</p>
 
-<pre><code>// Two other ways
-+function(){}();
+<pre><code>// A few other styles for directly invoking the 
+!function(){}()
++function(){}()
 (function(){}());
+// and so on...
 </code></pre>
 
 </div><div><h3>In Conclusion</h3>
@@ -1536,11 +1541,13 @@ overwritten.</p>
 
 <ul>
 <li>Accessing the (unmodified) global variable <code>undefined</code>.</li>
+<li>Accessing a declared <em>but not</em> yet initialized variable</li>
 <li>Implicit returns of functions due to missing <code>return</code> statements.</li>
 <li><code>return</code> statements which do not explicitly return anything.</li>
 <li>Lookups of non-existent properties.</li>
 <li>Function parameters which do not had any explicit value passed.</li>
 <li>Anything that has been set to the value of <code>undefined</code>.</li>
+<li>Any expression in the form of <code>void(expression)</code></li>
 </ul>
 
 </div><div><h3>Handling Changes to the Value of <code>undefined</code></h3>
