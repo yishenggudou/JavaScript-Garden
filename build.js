@@ -15,6 +15,8 @@ var Garden = Class(function(options) {
     this.languages = {};
     this.options = options;
     this.options.language = this.json([this.options.dir, 'language.json'].join('/'));
+    
+    console.log([this.options,[this.options.dir, 'language.json'].join('/')]);
 
     var that = this;
     languages.forEach(function(lang) {
